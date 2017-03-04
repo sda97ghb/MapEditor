@@ -16,6 +16,8 @@ public:
 
     void moveButton(const sf::Vector2f& cursorPos);
 
+    std::list<VertexButton>& vertexButtons();
+
 private:
     Platform* _platform;
 

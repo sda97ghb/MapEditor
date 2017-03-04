@@ -4,6 +4,7 @@
 #include "SFML/Graphics/View.hpp"
 
 #include "MapEditor/VertexButton.h"
+#include "MapEditor/PlatformDelegate.h"
 
 class MainWindow;
 
@@ -20,8 +21,8 @@ public:
 
 private:
     MainWindow* _window;
-    VertexButton _button[8];
-    uint32_t _numOfButtons;
+
+    PlatformDelegate _platformDeligate;
 };
 
 #endif // WORLDVIEW_H

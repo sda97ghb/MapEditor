@@ -4,8 +4,7 @@
 #include "MapEditor/Model.h"
 #include "MapEditor/WorldView.h"
 
-WorldView::WorldView(MainWindow* window) :
-    _numOfButtons(0)
+WorldView::WorldView(MainWindow* window)
 {
     _window = window;
 
@@ -17,13 +16,15 @@ WorldView::WorldView(MainWindow* window) :
 
 void WorldView::paint()
 {
-    Model& model = Model::instance();
+    {
+        Model& model = Model::instance();
 
-    for (Platform& platform : model.platforms())
-        _window->draw(platform.shape);
+        for (Platform& platform : model.platforms())
+            _window->draw(platform.shape);
+    }
 
-    for (uint32_t i = 0; i < _numOfButtons; ++ i)
-        _window->draw(_button[i]);
+    for (VertexButton& button : _platformDeligate.vertexButtons())
+        _window->draw(button);
 
     sf::CircleShape zero;
     zero.setFillColor(sf::Color::Red);
@@ -37,18 +38,9 @@ void WorldView::mousePressedEvent(const sf::Event::MouseButtonEvent& event)
     sf::Vector2f cursorPos = _window->mapPixelToCoords(sf::Vector2i(event.x,
                                                                     event.y));
 
-    Platform& platform = Model::instance().platforms().back();
-    _numOfButtons = platform.shape.getPointCount();
-    for (uint32_t i = 0; i < _numOfButtons; ++ i)
-    {
-        _button[i].setPosition(platform.shape.getPoint(i));
+    _platformDeligate.setPlatform(Model::instance().platforms().back());
 
-        _button[i].setOnMoveCallback([&platform, this, i] () {
-            platform.shape.setPoint(i, _button[i].getPosition());
-        });
-
-        _button[i].grab(cursorPos);
-    }
+    _platformDeligate.grabButton(cursorPos);
 }
 
 void WorldView::mouseReleasedEvent(const sf::Event::MouseButtonEvent& event)
@@ -56,8 +48,7 @@ void WorldView::mouseReleasedEvent(const sf::Event::MouseButtonEvent& event)
     sf::Vector2f cursorPos = _window->mapPixelToCoords(sf::Vector2i(event.x,
                                                                     event.y));
     (void)cursorPos;
-    for (uint32_t i = 0; i < _numOfButtons; ++ i)
-        _button[i].release();
+    _platformDeligate.releaseButtons();
 }
 
 void WorldView::mouseMovedEvent(const sf::Event::MouseMoveEvent& event)
@@ -65,6 +56,5 @@ void WorldView::mouseMovedEvent(const sf::Event::MouseMoveEvent& event)
     sf::Vector2f cursorPos = _window->mapPixelToCoords(sf::Vector2i(event.x,
                                                                     event.y));
 
-    for (uint32_t i = 0; i < _numOfButtons; ++ i)
-        _button[i].move(cursorPos);
+    _platformDeligate.moveButton(cursorPos);
 }

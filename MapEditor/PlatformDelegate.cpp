@@ -1,4 +1,4 @@
-#include "PlatformDelegate.h"
+#include "MapEditor/PlatformDelegate.h"
 
 PlatformDelegate::PlatformDelegate()
 {
@@ -10,8 +10,7 @@ void PlatformDelegate::setPlatform(Platform& platform)
 
     _vertexButtons.clear();
 
-    uint32_t _numOfButtons = platform.shape.getPointCount();
-    for (uint32_t i = 0; i < _numOfButtons; ++ i)
+    for (uint32_t i = 0; i < platform.shape.getPointCount(); ++ i)
     {
         _vertexButtons.emplace_back();
         VertexButton& button = _vertexButtons.back();
@@ -21,22 +20,28 @@ void PlatformDelegate::setPlatform(Platform& platform)
         button.setOnMoveCallback([&platform, &button, i] () {
             platform.shape.setPoint(i, button.getPosition());
         });
-
-//        button.grab(cursorPos);
     }
 }
 
 void PlatformDelegate::grabButton(const sf::Vector2f& cursorPos)
 {
-
+    for (VertexButton& button : _vertexButtons)
+        button.grab(cursorPos);
 }
 
 void PlatformDelegate::releaseButtons()
 {
-
+    for (VertexButton& button : _vertexButtons)
+        button.release();
 }
 
 void PlatformDelegate::moveButton(const sf::Vector2f& cursorPos)
 {
+    for (VertexButton& button : _vertexButtons)
+        button.move(cursorPos);
+}
 
+std::list<VertexButton>& PlatformDelegate::vertexButtons()
+{
+    return _vertexButtons;
 }
