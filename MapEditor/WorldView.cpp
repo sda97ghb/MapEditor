@@ -10,6 +10,8 @@ WorldView::WorldView(MainWindow* window)
     // scale view to make 1 physical meter equal to 1 grapical unit
     setSize(36.0f, -21.0f); // (36x21) == (1200x700) / 100 * 3
     setViewport(sf::FloatRect(0.0f, 0.0f, 0.8f, 1.0f)); // 1500 * 0.8 = 1200
+
+    Model::instance().addSubsriber(*this);
 }
 
 void WorldView::paint()
@@ -44,10 +46,10 @@ void WorldView::mouseReleasedEvent(const sf::Event::MouseButtonEvent& event)
     for (Platform& platform : Model::instance().platforms())
         platform.testForClick(cursorPos);
 
-    Model::Index index = Model::instance().currentIndex();
+//    Index index = Model::instance().currentIndex();
 
-    if (index.type == Model::Index::Type::platform)
-        _platformDeligate.setPlatform(*static_cast<Platform*>(index.object));
+//    if (index.type == Index::Type::platform)
+//        _platformDeligate.setPlatform(*static_cast<Platform*>(index.object));
 
     _platformDeligate.releaseButtons();
 }
@@ -58,4 +60,28 @@ void WorldView::mouseMovedEvent(const sf::Event::MouseMoveEvent& event)
                                                                     event.y));
 
     _platformDeligate.moveButton(cursorPos);
+}
+
+void WorldView::elementChanged(Index index)
+{
+    updateDelegate(index);
+}
+
+void WorldView::elementSelected(Index index)
+{
+    updateDelegate(index);
+}
+
+void WorldView::updateDelegate(Index index)
+{
+    switch (index.type)
+    {
+        case Index::Type::platform :
+        {
+            _platformDeligate.setPlatform(*static_cast<Platform*>(index.object));
+            // reset other delegates
+        } break;
+        case Index::Type::null :
+            break;
+    }
 }

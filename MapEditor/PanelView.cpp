@@ -13,48 +13,38 @@ PanelView::PanelView(Window* window) :
 
 void PanelView::paint()
 {
-    Model::Index index = Model::instance().currentIndex();
+    Index index = Model::instance().currentIndex();
 
     switch (index.type)
     {
-        case Model::Index::Type::platform :
+        case Index::Type::platform :
         {
             Platform& platform = *static_cast<Platform*>(index.object);
             _platformPropertiesDelegate.setPlatform(platform);
             _platformPropertiesDelegate.paint(*_window);
         } break;
-        case Model::Index::Type::null :
+        case Index::Type::null :
             break;
     }
 
     sf::RectangleShape splitter;
-    splitter.setFillColor(sf::Color(0x002222FF));
+    splitter.setFillColor(sf::Color(50, 50, 50));
     splitter.setPosition(0.0f, 0.0f);
-    splitter.setSize(sf::Vector2f(3.0f, getSize().y));
+    splitter.setSize(sf::Vector2f(2.0f, getSize().y));
     _window->draw(splitter);
-
-//    sf::Vertex line[2] = {sf::Vertex(sf::Vector2f(0.0f, 0.0f)),
-//                          sf::Vertex(sf::Vector2f(0.0f, 0.0f))};
-//    _window->draw(line, 2, sf::Lines);
-
-//    sf::CircleShape zero;
-//    zero.setFillColor(sf::Color::Red);
-//    zero.setRadius(2.0f);
-//    zero.setPosition(0.0f, 0.0f);
-//    _window->draw(zero);
 }
 
 void PanelView::mouseReleasedEvent(const sf::Event::MouseButtonEvent& event)
 {
     sf::Vector2f cursorPos = _window->mapPixelToCoords(sf::Vector2i(event.x, event.y));
-    Model::Index index = Model::instance().currentIndex();
+    Index index = Model::instance().currentIndex();
 
     switch (index.type)
     {
-        case Model::Index::Type::platform :
+        case Index::Type::platform :
             _platformPropertiesDelegate.testForClick(cursorPos);
             break;
-        case Model::Index::Type::null :
+        case Index::Type::null :
             break;
     }
 }

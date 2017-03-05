@@ -1,46 +1,30 @@
 #ifndef MODEL_H
 #define MODEL_H
 
+#include <list>
+
+#include "MapEditor/Index.h"
+#include "MapEditor/ModelSubscriber.h"
 #include "MapEditor/Platform.h"
 
 class Model
 {
 public:
-    class Index
-    {
-    public:
-        enum class Type
-        {
-            null,
-            platform
-        };
-
-        Index(Type type_, Properted* object_) :
-            type(type_),
-            object(object_)
-        {}
-
-        Type type;
-
-        Properted* object;
-
-        static Index zero()
-        {
-            return Index(Type::null, nullptr);
-        }
-    };
-
     static Model& instance();
 
     Platform& createPlatform();
 
     std::list<Platform>& platforms();
 
-    void setCurrentPlatform(Platform& platform);
-
     Platform* currentPlatform() const;
 
     Index currentIndex();
+
+    void selectElement(Platform& platform);
+
+    void addSubsriber(ModelSubscriber& subscriber);
+    void notifySelected(Index index);
+    void notifyChanged(Index index);
 
 private:
     Model();
@@ -50,7 +34,10 @@ private:
 
     std::list<Platform> _platforms;
 
+    Index _currentIndex;
     Platform* _currentPlatform;
+
+    std::list<ModelSubscriber*> _subsribers;
 };
 
 #endif // MODEL_H

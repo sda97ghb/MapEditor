@@ -12,7 +12,7 @@ Platform& Model::createPlatform()
     Platform& platform = _platforms.back();
 
     platform.setOnClickCallback([this, &platform] () {
-        setCurrentPlatform(platform);
+        selectElement(platform);
     });
     return platform;
 }
@@ -20,11 +20,6 @@ Platform& Model::createPlatform()
 std::list<Platform>& Model::platforms()
 {
     return _platforms;
-}
-
-void Model::setCurrentPlatform(Platform& platform)
-{
-    _currentPlatform = &platform;
 }
 
 Model::Model() :
@@ -37,9 +32,32 @@ Platform* Model::currentPlatform() const
     return _currentPlatform;
 }
 
-Model::Index Model::currentIndex()
+Index Model::currentIndex()
 {
     if (_currentPlatform == nullptr)
-        return Index::zero();
+        return Index();
     return Index(Index::Type::platform, _currentPlatform);
+}
+
+void Model::selectElement(Platform& platform)
+{
+    _currentPlatform = &platform;
+    notifySelected(Index(Index::Type::platform, &platform));
+}
+
+void Model::addSubsriber(ModelSubscriber& subscriber)
+{
+    _subsribers.push_back(&subscriber);
+}
+
+void Model::notifySelected(Index index)
+{
+    for (ModelSubscriber* subscriber : _subsribers)
+        subscriber->elementSelected(index);
+}
+
+void Model::notifyChanged(Index index)
+{
+    for (ModelSubscriber* subscriber : _subsribers)
+        subscriber->elementChanged(index);
 }

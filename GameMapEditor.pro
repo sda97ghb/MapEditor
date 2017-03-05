@@ -25,7 +25,9 @@ SOURCES += main.cpp \
     MapEditor/PlatformDelegate.cpp \
     MapEditor/ClickableConvex.cpp \
     MapEditor/Properted.cpp \
-    MapEditor/PlatformPropertiesDelegate.cpp
+    MapEditor/PlatformPropertiesDelegate.cpp \
+    MapEditor/ModelSubscriber.cpp \
+    MapEditor/Index.cpp
 
 HEADERS += \
     MapEditor/Window.h \
@@ -42,4 +44,6 @@ HEADERS += \
     MapEditor/PlatformDelegate.h \
     MapEditor/ClickableConvex.h \
     MapEditor/Properted.h \
-    MapEditor/PlatformPropertiesDelegate.h
+    MapEditor/PlatformPropertiesDelegate.h \
+    MapEditor/ModelSubscriber.h \
+    MapEditor/Index.h

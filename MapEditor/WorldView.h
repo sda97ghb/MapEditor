@@ -3,12 +3,13 @@
 
 #include "SFML/Graphics/View.hpp"
 
-#include "MapEditor/VertexButton.h"
+#include "MapEditor/Model.h"
 #include "MapEditor/PlatformDelegate.h"
+#include "MapEditor/VertexButton.h"
 
 class MainWindow;
 
-class WorldView : public sf::View
+class WorldView : public sf::View, public ModelSubscriber
 {
 public:
     WorldView(MainWindow* window);
@@ -18,6 +19,11 @@ public:
     void mousePressedEvent(const sf::Event::MouseButtonEvent& event);
     void mouseReleasedEvent(const sf::Event::MouseButtonEvent& event);
     void mouseMovedEvent(const sf::Event::MouseMoveEvent& event);
+
+    void elementChanged(Index index);
+    void elementSelected(Index index);
+
+    void updateDelegate(Index index);
 
 private:
     MainWindow* _window;
