@@ -22,26 +22,18 @@ std::list<Platform>& Model::platforms()
     return _platforms;
 }
 
-Model::Model() :
-    _currentPlatform(nullptr)
+Model::Model()
 {
-}
-
-Platform* Model::currentPlatform() const
-{
-    return _currentPlatform;
 }
 
 Index Model::currentIndex()
 {
-    if (_currentPlatform == nullptr)
-        return Index();
-    return Index(Index::Type::platform, _currentPlatform);
+    return _currentIndex;
 }
 
 void Model::selectElement(Platform& platform)
 {
-    _currentPlatform = &platform;
+    _currentIndex = Index(Index::Type::platform, &platform);
     notifySelected(Index(Index::Type::platform, &platform));
 }
 

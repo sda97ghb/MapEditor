@@ -16,10 +16,7 @@ public:
 
     std::list<Platform>& platforms();
 
-    Platform* currentPlatform() const;
-
     Index currentIndex();
-
     void selectElement(Platform& platform);
 
     void addSubsriber(ModelSubscriber& subscriber);
@@ -35,7 +32,6 @@ private:
     std::list<Platform> _platforms;
 
     Index _currentIndex;
-    Platform* _currentPlatform;
 
     std::list<ModelSubscriber*> _subsribers;
 };
