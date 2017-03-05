@@ -1,24 +1,20 @@
 #include "MapEditor/PlatformDelegate.h"
 
-PlatformDelegate::PlatformDelegate()
-{
-}
-
 void PlatformDelegate::setPlatform(Platform& platform)
 {
     _platform = &platform;
 
     _vertexButtons.clear();
 
-    for (uint32_t i = 0; i < platform.shape.getPointCount(); ++ i)
+    for (uint32_t i = 0; i < platform.getPointCount(); ++ i)
     {
         _vertexButtons.emplace_back();
         VertexButton& button = _vertexButtons.back();
 
-        button.setPosition(platform.shape.getPoint(i));
+        button.setPosition(platform.getPoint(i));
 
         button.setOnMoveCallback([&platform, &button, i] () {
-            platform.shape.setPoint(i, button.getPosition());
+            platform.setPoint(i, button.getPosition());
         });
     }
 }

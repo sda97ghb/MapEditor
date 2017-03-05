@@ -24,12 +24,31 @@ MainWindow::MainWindow() :
         vertexes.push_back(sf::Vector2f(-20.0f,  0.0f));
         platform.setShape(vertexes);
 
-        platform.shape.setFillColor(sf::Color(255, 255, 255));
+        platform.setFillColor(sf::Color(255, 255, 255));
         static sf::Texture texture;
         texture.loadFromFile("C:/Projects/Game/Textures/stonebricks.png");
         texture.setRepeated(true);
-        platform.shape.setTexture(&texture);
-        platform.shape.setTextureRect(sf::IntRect(0, 0, 16 * 40, 16 * 5));
+        platform.setTexture(&texture);
+        platform.setTextureRect(sf::IntRect(0, 0, 16 * 40, 16 * 5));
+    }
+    {
+        Platform& platform = model.createPlatform();
+        platform.move(0.0f, 0.0f);
+//        platform.shape.setFillColor(sf::Color(100, 80, 100));
+
+        std::list<sf::Vector2f> vertexes;
+        vertexes.push_back(sf::Vector2f(-20.0f,  5.0f));
+        vertexes.push_back(sf::Vector2f( 20.0f,  5.0f));
+        vertexes.push_back(sf::Vector2f( 20.0f, 10.0f));
+        vertexes.push_back(sf::Vector2f(-20.0f, 10.0f));
+        platform.setShape(vertexes);
+
+        platform.setFillColor(sf::Color(255, 255, 255));
+        static sf::Texture texture;
+        texture.loadFromFile("C:/Projects/Game/Textures/stonebricks.png");
+        texture.setRepeated(true);
+        platform.setTexture(&texture);
+        platform.setTextureRect(sf::IntRect(0, 0, 16 * 40, 16 * 5));
     }
 }
 

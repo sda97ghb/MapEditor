@@ -3,26 +3,18 @@
 
 #include <list>
 
-#include "SFML/Graphics/ConvexShape.hpp"
+#include "MapEditor/ClickableConvex.h"
 
-struct Platform
+class Platform : public ClickableConvex
 {
+public:
     Platform();
 
     void setShape(const std::list<sf::Vector2f>& vertexes);
 
-    void grab(float mouseX, float mouseY);
-    void release();
-
-    void move(float mouseX, float mouseY);
-
-    sf::ConvexShape shape;
     bool canMove;
     int dx;
     int dy;
-
-private:
-
 };
 
 

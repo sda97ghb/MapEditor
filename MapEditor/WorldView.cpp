@@ -1,10 +1,9 @@
-#include <iostream>
-
 #include "MapEditor/MainWindow.h"
 #include "MapEditor/Model.h"
 #include "MapEditor/WorldView.h"
 
-WorldView::WorldView(MainWindow* window)
+WorldView::WorldView(MainWindow* window) :
+    _currentPlatform(nullptr)
 {
     _window = window;
 
@@ -16,12 +15,10 @@ WorldView::WorldView(MainWindow* window)
 
 void WorldView::paint()
 {
-    {
-        Model& model = Model::instance();
+    Model& model = Model::instance();
 
-        for (Platform& platform : model.platforms())
-            _window->draw(platform.shape);
-    }
+    for (Platform& platform : model.platforms())
+        _window->draw(platform);
 
     for (VertexButton& button : _platformDeligate.vertexButtons())
         _window->draw(button);
@@ -38,7 +35,10 @@ void WorldView::mousePressedEvent(const sf::Event::MouseButtonEvent& event)
     sf::Vector2f cursorPos = _window->mapPixelToCoords(sf::Vector2i(event.x,
                                                                     event.y));
 
-    _platformDeligate.setPlatform(Model::instance().platforms().back());
+    for (Platform& platform : Model::instance().platforms())
+        platform.setOnClickCallback([this, &platform] () {
+            _currentPlatform = &platform;
+        });
 
     _platformDeligate.grabButton(cursorPos);
 }
@@ -47,7 +47,14 @@ void WorldView::mouseReleasedEvent(const sf::Event::MouseButtonEvent& event)
 {
     sf::Vector2f cursorPos = _window->mapPixelToCoords(sf::Vector2i(event.x,
                                                                     event.y));
-    (void)cursorPos;
+    for (Platform& platform : Model::instance().platforms())
+        platform.testForClick(cursorPos);
+
+    if (_currentPlatform == nullptr)
+        _currentPlatform = &Model::instance().platforms().back();
+
+    _platformDeligate.setPlatform(*_currentPlatform);
+
     _platformDeligate.releaseButtons();
 }
 

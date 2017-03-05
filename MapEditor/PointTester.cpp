@@ -9,6 +9,9 @@ bool PointTester::test(const sf::Vector2f& point, const sf::CircleShape& shape)
 
 bool PointTester::test(sf::Vector2f point, const sf::ConvexShape& shape)
 {
+    if (shape.getPointCount() < 3)
+        return false;
+
     point -= shape.getPosition();
 
     auto isPositive = [] (float v) -> bool

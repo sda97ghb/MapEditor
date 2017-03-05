@@ -22,7 +22,8 @@ SOURCES += main.cpp \
     MapEditor/Button.cpp \
     MapEditor/MovableButton.cpp \
     MapEditor/VertexButton.cpp \
-    MapEditor/PlatformDelegate.cpp
+    MapEditor/PlatformDelegate.cpp \
+    MapEditor/ClickableConvex.cpp
 
 HEADERS += \
     MapEditor/Window.h \
@@ -36,4 +37,5 @@ HEADERS += \
     MapEditor/Button.h \
     MapEditor/MovableButton.h \
     MapEditor/VertexButton.h \
-    MapEditor/PlatformDelegate.h
+    MapEditor/PlatformDelegate.h \
+    MapEditor/ClickableConvex.h
