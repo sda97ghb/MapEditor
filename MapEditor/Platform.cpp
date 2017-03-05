@@ -6,10 +6,13 @@ Platform::Platform() :
     dx(0),
     dy(0)
 {
+    setInt("number_of_vertexes", 0);
 }
 
 void Platform::setShape(const std::list<sf::Vector2f>& vertexes)
 {
+    setInt("number_of_vertexes", vertexes.size());
+
     setPointCount(vertexes.size());
 
     int i = 0;

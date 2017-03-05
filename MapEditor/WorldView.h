@@ -22,8 +22,6 @@ public:
 private:
     MainWindow* _window;
 
-    Platform* _currentPlatform;
-
     PlatformDelegate _platformDeligate;
 };
 

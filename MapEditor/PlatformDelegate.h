@@ -7,6 +7,7 @@
 class PlatformDelegate
 {
 public:
+    void reset();
     void setPlatform(Platform& platform);
 
     void grabButton(const sf::Vector2f& cursorPos);

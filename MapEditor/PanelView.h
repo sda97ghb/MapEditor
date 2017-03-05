@@ -7,6 +7,8 @@
 #include "SFML/Window/Event.hpp"
 
 #include "MapEditor/Button.h"
+#include "MapEditor/Platform.h"
+#include "MapEditor/PlatformPropertiesDelegate.h"
 #include "MapEditor/Window.h"
 
 class PanelView : public sf::View
@@ -18,7 +20,7 @@ public:
 
     void mouseReleasedEvent(const sf::Event::MouseButtonEvent& event);
 
-    std::list<Button> _buttons;
+    PlatformPropertiesDelegate _platformPropertiesDelegate;
 
     Window* _window;
 };

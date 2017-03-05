@@ -4,8 +4,9 @@
 #include <list>
 
 #include "MapEditor/ClickableConvex.h"
+#include "MapEditor/Properted.h"
 
-class Platform : public ClickableConvex
+class Platform : public ClickableConvex, public Properted
 {
 public:
     Platform();

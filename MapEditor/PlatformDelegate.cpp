@@ -1,5 +1,11 @@
 #include "MapEditor/PlatformDelegate.h"
 
+void PlatformDelegate::reset()
+{
+    _platform = nullptr;
+    _vertexButtons.clear();
+}
+
 void PlatformDelegate::setPlatform(Platform& platform)
 {
     _platform = &platform;

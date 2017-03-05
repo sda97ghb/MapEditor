@@ -2,8 +2,7 @@
 #include "MapEditor/Model.h"
 #include "MapEditor/WorldView.h"
 
-WorldView::WorldView(MainWindow* window) :
-    _currentPlatform(nullptr)
+WorldView::WorldView(MainWindow* window)
 {
     _window = window;
 
@@ -35,11 +34,6 @@ void WorldView::mousePressedEvent(const sf::Event::MouseButtonEvent& event)
     sf::Vector2f cursorPos = _window->mapPixelToCoords(sf::Vector2i(event.x,
                                                                     event.y));
 
-    for (Platform& platform : Model::instance().platforms())
-        platform.setOnClickCallback([this, &platform] () {
-            _currentPlatform = &platform;
-        });
-
     _platformDeligate.grabButton(cursorPos);
 }
 
@@ -50,10 +44,10 @@ void WorldView::mouseReleasedEvent(const sf::Event::MouseButtonEvent& event)
     for (Platform& platform : Model::instance().platforms())
         platform.testForClick(cursorPos);
 
-    if (_currentPlatform == nullptr)
-        _currentPlatform = &Model::instance().platforms().back();
+    Model::Index index = Model::instance().currentIndex();
 
-    _platformDeligate.setPlatform(*_currentPlatform);
+    if (index.type == Model::Index::Type::platform)
+        _platformDeligate.setPlatform(*static_cast<Platform*>(index.object));
 
     _platformDeligate.releaseButtons();
 }

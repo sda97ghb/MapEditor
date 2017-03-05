@@ -8,6 +8,9 @@
 class Button : public sf::RectangleShape
 {
 public:
+    void setSize(const sf::Vector2f& size);
+    void setSize(float width, float height);
+
     void testForClick(const sf::Vector2f& pos);
 
     void setCallback(const std::function<void ()>& callback);
