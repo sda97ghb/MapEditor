@@ -5,6 +5,7 @@ CONFIG -= qt
 
 QMAKE_CXXFLAGS += -Wall -Wextra -Wconversion
 
+INCLUDEPATH += TinyXml2
 INCLUDEPATH += SFML-2.4.2-MinGW-32/include
 
 LIBS += -LC:\Projects\GameMapEditor\SFML-2.4.2-MinGW-32\lib
@@ -27,7 +28,9 @@ SOURCES += main.cpp \
     MapEditor/Properted.cpp \
     MapEditor/PlatformPropertiesDelegate.cpp \
     MapEditor/ModelSubscriber.cpp \
-    MapEditor/Index.cpp
+    MapEditor/Index.cpp \
+    MapEditor/ModelSaver.cpp \
+    TinyXml2/tinyxml2.cpp
 
 HEADERS += \
     MapEditor/Window.h \
@@ -46,4 +49,6 @@ HEADERS += \
     MapEditor/Properted.h \
     MapEditor/PlatformPropertiesDelegate.h \
     MapEditor/ModelSubscriber.h \
-    MapEditor/Index.h
+    MapEditor/Index.h \
+    MapEditor/ModelSaver.h \
+    TinyXml2/tinyxml2.h

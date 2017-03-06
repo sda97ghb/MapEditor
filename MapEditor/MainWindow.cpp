@@ -4,6 +4,7 @@
 
 #include "MapEditor/MainWindow.h"
 #include "MapEditor/Model.h"
+#include "MapEditor/ModelSaver.h"
 
 MainWindow::MainWindow() :
     Window(1500, 700, "Game map editor"), // 1500 * 0.8 == 1200
@@ -50,6 +51,13 @@ MainWindow::MainWindow() :
         platform.setTexture(&texture);
         platform.setTextureRect(sf::IntRect(0, 0, 16 * 40, 16 * 5));
     }
+}
+
+MainWindow::~MainWindow()
+{
+    ModelSaver().save("C:/Projects/Builds/"
+                      "build-GameMapEditor-Desktop_Qt_5_7_0_MinGW_32bit-Debug/"
+                      "debug/MapLevels/map1.xml");
 }
 
 void MainWindow::paint()

@@ -12,6 +12,7 @@ class MainWindow : public Window
 {
 public:
     MainWindow();
+    ~MainWindow();
 
     void paint();
 

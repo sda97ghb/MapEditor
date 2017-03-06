@@ -34,7 +34,7 @@ Index Model::currentIndex()
 void Model::selectElement(Platform& platform)
 {
     _currentIndex = Index(Index::Type::platform, &platform);
-    notifySelected(Index(Index::Type::platform, &platform));
+    notifySelected(_currentIndex);
 }
 
 void Model::addSubsriber(ModelSubscriber& subscriber)
