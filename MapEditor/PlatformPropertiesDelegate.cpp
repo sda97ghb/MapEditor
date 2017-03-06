@@ -3,18 +3,39 @@
 #include "SFML/Graphics/Font.hpp"
 #include "SFML/Graphics/Text.hpp"
 
+#include "MapEditor/Model.h"
 #include "MapEditor/PlatformPropertiesDelegate.h"
 
 PlatformPropertiesDelegate::PlatformPropertiesDelegate()
 {
-    _addVertexButton.setPosition(20.0f, 80.0f);
-    _addVertexButton.setSize(150.0f, 30.0f);
+    _deleteVertexButton.setPosition(20.0f, 80.0f);
+    _deleteVertexButton.setSize(30.0f, 30.0f);
+    _deleteVertexButton.setCallback([this] () {
+        if (_platform->getPointCount() <= 3)
+            return;
+        _platform->setPointCount(_platform->getPointCount() - 1);
+        Model::instance().notifyChanged(Index(Index::Type::platform, _platform));
+    });
+
+    _addVertexButton.setPosition(70.0f, 80.0f);
+    _addVertexButton.setSize(30.0f, 30.0f);
     _addVertexButton.setCallback([this] () {
-        std::list<sf::Vector2f> vertexes = {sf::Vector2f(-1.0, -1.0),
-                                            sf::Vector2f( 1.0, -1.0),
-                                            sf::Vector2f( 1.0,  1.0),
-                                            sf::Vector2f(-1.0,  1.0)};
-        _platform->setShape(vertexes);
+        if (_platform->getPointCount() < 3)
+        {
+            std::list<sf::Vector2f> vertexes = {sf::Vector2f(-1.0, -1.0),
+                                                sf::Vector2f( 1.0, -1.0),
+                                                sf::Vector2f( 1.0,  1.0),
+                                                sf::Vector2f(-1.0,  1.0)};
+            _platform->setShape(vertexes);
+        }
+        else
+        {
+            _platform->setPointCount(_platform->getPointCount() + 1);
+            uint32_t lastNum = _platform->getPointCount() - 1;
+            _platform->setPoint(lastNum,
+                _platform->getPoint(lastNum - 1) + sf::Vector2f(0.5f, -0.5f));
+        }
+        Model::instance().notifyChanged(Index(Index::Type::platform, _platform));
     });
 }
 
@@ -48,6 +69,7 @@ void PlatformPropertiesDelegate::paint(sf::RenderWindow& window)
     }
 
     window.draw(_addVertexButton);
+    window.draw(_deleteVertexButton);
 }
 
 void PlatformPropertiesDelegate::setPlatform(Platform& platform)
@@ -58,4 +80,5 @@ void PlatformPropertiesDelegate::setPlatform(Platform& platform)
 void PlatformPropertiesDelegate::testForClick(const sf::Vector2f& cursorPos)
 {
     _addVertexButton.testForClick(cursorPos);
+    _deleteVertexButton.testForClick(cursorPos);
 }

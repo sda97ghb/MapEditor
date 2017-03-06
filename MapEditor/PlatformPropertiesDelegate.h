@@ -21,6 +21,7 @@ private:
     Platform* _platform;
 
     Button _addVertexButton;
+    Button _deleteVertexButton;
 };
 
 #endif // PLATFORMPROPERTIESDELEGATE_H
