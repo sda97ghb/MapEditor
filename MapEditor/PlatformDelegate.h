@@ -1,10 +1,11 @@
 #ifndef PLATFORMDELEGATE_H
 #define PLATFORMDELEGATE_H
 
-#include "MapEditor/VertexButton.h"
+#include "MapEditor/Delegate.h"
 #include "MapEditor/Platform.h"
+#include "MapEditor/VertexButton.h"
 
-class PlatformDelegate
+class PlatformDelegate : public Delegate
 {
 public:
     void reset();
@@ -15,12 +16,15 @@ public:
 
     void moveButton(const sf::Vector2f& cursorPos);
 
-    std::list<VertexButton>& vertexButtons();
+    std::vector<VertexButton>& vertexButtons();
+
+    void paint(sf::RenderWindow& window);
+    void testForClick(const sf::Vector2f& cursorPos);
 
 private:
     Platform* _platform;
 
-    std::list<VertexButton> _vertexButtons;
+    std::vector<VertexButton> _vertexButtons;
 };
 
 #endif // PLATFORMDELEGATE_H

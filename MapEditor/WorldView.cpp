@@ -9,7 +9,7 @@ WorldView::WorldView(MainWindow* window)
     setCenter(0.0f, 0.0f);
     // scale view to make 1 physical meter equal to 1 grapical unit
     setSize(36.0f, -21.0f); // (36x21) == (1200x700) / 100 * 3
-    setViewport(sf::FloatRect(0.0f, 0.0f, 0.8f, 1.0f)); // 1500 * 0.8 = 1200
+    setViewport(sf::FloatRect(0.0f, 0.1f, 0.8f, 1.0f)); // 1500 * 0.8 = 1200
 
     Model::instance().addSubsriber(*this);
 }
@@ -46,11 +46,6 @@ void WorldView::mouseReleasedEvent(const sf::Event::MouseButtonEvent& event)
     for (Platform& platform : Model::instance().platforms())
         platform.testForClick(cursorPos);
 
-//    Index index = Model::instance().currentIndex();
-
-//    if (index.type == Index::Type::platform)
-//        _platformDeligate.setPlatform(*static_cast<Platform*>(index.object));
-
     _platformDeligate.releaseButtons();
 }
 
@@ -79,6 +74,8 @@ void WorldView::updateDelegate(Index index)
         case Index::Type::platform :
         {
             _platformDeligate.setPlatform(*static_cast<Platform*>(index.object));
+//            Platform& platform = *static_cast<Platform*>(index.object);
+//            platform.setTextureRect(sf::IntRect(0, 0, (int)platform.width(), (int)platform.height()));
             // reset other delegates
         } break;
         case Index::Type::null :

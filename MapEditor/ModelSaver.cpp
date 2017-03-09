@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "MapEditor/Model.h"
 #include "MapEditor/ModelSaver.h"
 
@@ -9,6 +7,16 @@ ModelSaver::ModelSaver() :
     _doc(nullptr)
 {
 }
+
+//<platform>
+//    <shape>
+//        <vertex x="-20.0" y="-30.0"/>
+//        <vertex x="20.0" y="-30.0"/>
+//        <vertex x="20.0" y="0.0"/>
+//        <vertex x="-20.0" y="0.0"/>
+//    </shape>
+//    <texture picture="Textures/stonebricks.png"/>
+//</platform>
 
 void ModelSaver::save(const std::string& filename)
 {
@@ -31,10 +39,13 @@ void ModelSaver::saveGround(XMLElement& groundElem)
 {
     Model& model = Model::instance();
 
+    XMLElement* platforms = _doc->NewElement("platforms");
+    groundElem.LinkEndChild(platforms);
+
     for (Platform& platform : model.platforms())
     {
         XMLElement* platformElem = _doc->NewElement("platform");
-        groundElem.LinkEndChild(platformElem);
+        platforms->LinkEndChild(platformElem);
         savePlatform(platform, *platformElem);
     }
 }
@@ -52,4 +63,8 @@ void ModelSaver::savePlatform(Platform& platform, XMLElement& platformElem)
         vertexElem->SetAttribute("x", vertex.x);
         vertexElem->SetAttribute("y", vertex.y);
     }
+
+    XMLElement* texture = _doc->NewElement("texture");
+    platformElem.LinkEndChild(texture);
+    texture->SetAttribute("picture", "Textures/stonebricks.png");
 }

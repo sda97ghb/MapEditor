@@ -1,17 +1,14 @@
 #ifndef PANELVIEW_H
 #define PANELVIEW_H
 
-#include <list>
-
 #include "SFML/Graphics/View.hpp"
 #include "SFML/Window/Event.hpp"
 
-#include "MapEditor/Button.h"
-#include "MapEditor/Platform.h"
-#include "MapEditor/PlatformPropertiesDelegate.h"
+#include "MapEditor/Delegate.h"
+#include "MapEditor/ModelSubscriber.h"
 #include "MapEditor/Window.h"
 
-class PanelView : public sf::View
+class PanelView : public sf::View, public ModelSubscriber
 {
 public:
     PanelView(Window* window);
@@ -20,9 +17,15 @@ public:
 
     void mouseReleasedEvent(const sf::Event::MouseButtonEvent& event);
 
-    PlatformPropertiesDelegate _platformPropertiesDelegate;
+    void elementChanged(Index index);
+    void elementSelected(Index index);
+
+private:
+    void updateDelegate(Index index);
 
     Window* _window;
+
+    Delegate* _delegate;
 };
 
 #endif // PANELVIEW_H

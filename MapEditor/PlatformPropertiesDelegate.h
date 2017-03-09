@@ -1,12 +1,14 @@
 #ifndef PLATFORMPROPERTIESDELEGATE_H
 #define PLATFORMPROPERTIESDELEGATE_H
 
+#include "SFML/Graphics/Font.hpp"
 #include "SFML/Graphics/RenderWindow.hpp"
 
 #include "MapEditor/Button.h"
+#include "MapEditor/Delegate.h"
 #include "MapEditor/Platform.h"
 
-class PlatformPropertiesDelegate
+class PlatformPropertiesDelegate : public Delegate
 {
 public:
     PlatformPropertiesDelegate();
@@ -22,6 +24,8 @@ private:
 
     Button _addVertexButton;
     Button _deleteVertexButton;
+
+    sf::Font _font;
 };
 
 #endif // PLATFORMPROPERTIESDELEGATE_H

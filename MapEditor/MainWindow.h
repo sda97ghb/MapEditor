@@ -3,6 +3,7 @@
 
 #include "MapEditor/PanelView.h"
 #include "MapEditor/PointTester.h"
+#include "MapEditor/ToolbarView.h"
 #include "MapEditor/Window.h"
 #include "MapEditor/WorldView.h"
 
@@ -16,6 +17,8 @@ public:
 
     void paint();
 
+    void update();
+
     void mousePressedEvent(const sf::Event::MouseButtonEvent& event);
     void mouseReleasedEvent(const sf::Event::MouseButtonEvent& event);
     void mouseMovedEvent(const sf::Event::MouseMoveEvent& event);
@@ -25,8 +28,9 @@ private:
 
     Platform* _currentPlatform;
 
-    WorldView _worldView;
-    PanelView _panelView;
+    PanelView   _panelView;
+    ToolbarView _toolbarView;
+    WorldView   _worldView;
 };
 
 #endif // MAINWINDOW_H

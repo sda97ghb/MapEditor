@@ -1,6 +1,5 @@
 #include <iostream>
 
-#include "SFML/Graphics/Font.hpp"
 #include "SFML/Graphics/Text.hpp"
 
 #include "MapEditor/Model.h"
@@ -8,17 +7,9 @@
 
 PlatformPropertiesDelegate::PlatformPropertiesDelegate()
 {
-    _deleteVertexButton.setPosition(20.0f, 80.0f);
-    _deleteVertexButton.setSize(30.0f, 30.0f);
-    _deleteVertexButton.setCallback([this] () {
-        if (_platform->getPointCount() <= 3)
-            return;
-        _platform->setPointCount(_platform->getPointCount() - 1);
-        Model::instance().notifyChanged(Index(Index::Type::platform, _platform));
-    });
-
-    _addVertexButton.setPosition(70.0f, 80.0f);
+    _addVertexButton.setPosition(10.0f, 80.0f);
     _addVertexButton.setSize(30.0f, 30.0f);
+    _addVertexButton.setFillColor(sf::Color(34, 177, 76));
     _addVertexButton.setCallback([this] () {
         if (_platform->getPointCount() < 3)
         {
@@ -37,22 +28,32 @@ PlatformPropertiesDelegate::PlatformPropertiesDelegate()
         }
         Model::instance().notifyChanged(Index(Index::Type::platform, _platform));
     });
+
+    _deleteVertexButton.setPosition(50.0f, 80.0f);
+    _deleteVertexButton.setSize(30.0f, 30.0f);
+    _deleteVertexButton.setFillColor(sf::Color(225, 47, 55));
+    _deleteVertexButton.setCallback([this] () {
+        if (_platform->getPointCount() <= 3)
+            return;
+        _platform->setPointCount(_platform->getPointCount() - 1);
+        Model::instance().notifyChanged(Index(Index::Type::platform, _platform));
+    });
+
+    _font.loadFromFile("C:/Projects/GameMapEditor/Fonts/open-sans/OpenSans-Light.ttf");
 }
 
 void PlatformPropertiesDelegate::paint(sf::RenderWindow& window)
 {
     sf::Text text;
-    sf::Font font;
-    font.loadFromFile("C:/Projects/GameMapEditor/Fonts/open-sans/OpenSans-Light.ttf");
-    text.setFont(font);
+    text.setFont(_font);
     text.setCharacterSize(16u);
     text.setFillColor(sf::Color::White);
 
-    text.setPosition(3.0f, 5.0f);
+    text.setPosition(10.0f, 10.0f);
     text.setString("Current platform:");
     window.draw(text);
 
-    text.setPosition(3.0f, 25.0f);
+    text.setPosition(10.0f, 30.0f);
     text.setString(std::to_string((int)_platform));
     window.draw(text);
 
@@ -63,7 +64,7 @@ void PlatformPropertiesDelegate::paint(sf::RenderWindow& window)
     std::list<std::string> intProperties = _platform->intProperties();
     for (std::string& property : intProperties)
     {
-        text.setPosition(3.0f, 25.0f + 20.0f * static_cast<float>(i++));
+        text.setPosition(10.0f, 30.0f + 20.0f * static_cast<float>(i++));
         text.setString(std::to_string(_platform->getInt(property)));
         window.draw(text);
     }

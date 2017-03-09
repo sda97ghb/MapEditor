@@ -3,12 +3,15 @@ CONFIG += console c++11
 CONFIG -= app_bundle
 CONFIG -= qt
 
+QMAKE_CXXFLAGS_DEBUG += -pg
+QMAKE_LFLAGS_DEBUG += -pg
+
 QMAKE_CXXFLAGS += -Wall -Wextra -Wconversion
 
 INCLUDEPATH += TinyXml2
 INCLUDEPATH += SFML-2.4.2-MinGW-32/include
 
-LIBS += -LC:\Projects\GameMapEditor\SFML-2.4.2-MinGW-32\lib
+LIBS += -LC:/Projects/GameMapEditor/SFML-2.4.2-MinGW-32/lib
 LIBS += -lsfml-graphics-d -lsfml-window-d -lsfml-system-d -lsfml-audio-d
 
 SOURCES += main.cpp \
@@ -30,7 +33,11 @@ SOURCES += main.cpp \
     MapEditor/ModelSubscriber.cpp \
     MapEditor/Index.cpp \
     MapEditor/ModelSaver.cpp \
-    TinyXml2/tinyxml2.cpp
+    TinyXml2/tinyxml2.cpp \
+    MapEditor/Delegate.cpp \
+    MapEditor/TextBox.cpp \
+    MapEditor/ToolbarView.cpp \
+    MapEditor/ModelLoader.cpp
 
 HEADERS += \
     MapEditor/Window.h \
@@ -51,4 +58,8 @@ HEADERS += \
     MapEditor/ModelSubscriber.h \
     MapEditor/Index.h \
     MapEditor/ModelSaver.h \
-    TinyXml2/tinyxml2.h
+    TinyXml2/tinyxml2.h \
+    MapEditor/Delegate.h \
+    MapEditor/TextBox.h \
+    MapEditor/ToolbarView.h \
+    MapEditor/ModelLoader.h

@@ -1,3 +1,6 @@
+#include <iostream>
+
+#include "MapEditor/Model.h"
 #include "MapEditor/PlatformDelegate.h"
 
 void PlatformDelegate::reset()
@@ -10,17 +13,21 @@ void PlatformDelegate::setPlatform(Platform& platform)
 {
     _platform = &platform;
 
-    _vertexButtons.clear();
+    if (vertexButtons().size() != platform.getPointCount())
+        _vertexButtons.resize(platform.getPointCount());
 
     for (uint32_t i = 0; i < platform.getPointCount(); ++ i)
     {
-        _vertexButtons.emplace_back();
-        VertexButton& button = _vertexButtons.back();
+        VertexButton& button = _vertexButtons[i];
 
         button.setPosition(platform.getPoint(i));
 
         button.setOnMoveCallback([&platform, &button, i] () {
             platform.setPoint(i, button.getPosition());
+            platform.setTextureRect(sf::IntRect(0, 0,
+                                                16 * platform.width(),
+                                                16 * platform.height()));
+//            Model::instance().notifyChanged(Index(Index::Type::platform, &platform));
         });
     }
 }
@@ -43,7 +50,17 @@ void PlatformDelegate::moveButton(const sf::Vector2f& cursorPos)
         button.move(cursorPos);
 }
 
-std::list<VertexButton>& PlatformDelegate::vertexButtons()
+std::vector<VertexButton>& PlatformDelegate::vertexButtons()
 {
     return _vertexButtons;
+}
+
+void PlatformDelegate::paint(sf::RenderWindow& window)
+{
+    (void)window;
+}
+
+void PlatformDelegate::testForClick(const sf::Vector2f& cursorPos)
+{
+    (void)cursorPos;
 }

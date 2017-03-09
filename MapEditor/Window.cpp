@@ -60,6 +60,7 @@ void Window::run()
             }
         }
 
+        update();
         paint();
     }
 }

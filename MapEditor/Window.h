@@ -20,6 +20,8 @@ public:
 
     virtual void paint() = 0;
 
+    virtual void update() = 0;
+
     virtual void run() final;
 };
 
