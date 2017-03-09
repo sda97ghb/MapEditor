@@ -34,10 +34,14 @@ private:
     int raiting;
 };
 
+sf::ContextSettings contextSettings;
+
 int main(int argc, char *argv[])
 {
     (void)argc;
     (void)argv;
+
+    contextSettings.antialiasingLevel = 8;
 
     map_editor::MainWindow window;
     window.run();
@@ -46,7 +50,7 @@ int main(int argc, char *argv[])
 }
 
 map_editor::MainWindow::MainWindow() :
-    sfml_widgets::Window(1000, 400, "SFMLWidgets test")
+    sfml_widgets::Window(1000, 400, "SFMLWidgets test", sf::Style::Default, contextSettings)
 {
     _view1 = new sfml_widgets::View(this);
     _view2 = new sfml_widgets::View(this);
@@ -69,7 +73,7 @@ map_editor::MainWindow::MainWindow() :
     _rect1->setPointCount(3);
     _rect1->setPoint(0, sf::Vector2f(-0.5f, 0.1f));
     _rect1->setPoint(1, sf::Vector2f( 0.5f, 0.1f));
-    _rect1->setPoint(2, sf::Vector2f( 0.0f, 0.6f));
+    _rect1->setPoint(2, sf::Vector2f( 0.0f, 1.34f));
     _rect1->setOnClickCallback([=] () {incereaseRaiting();});
 
     _rect2 = new sfml_widgets::ClickableConvex(_view1);

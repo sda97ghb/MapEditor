@@ -2,9 +2,9 @@
 #include "SFMLWidgets/Window.h"
 
 sfml_widgets::Window::Window(uint32_t width, uint32_t height,
-                             const std::string& title,
-                             uint32_t style) :
-    sf::RenderWindow(sf::VideoMode(width, height), title, style)
+                             const std::string& title, uint32_t style,
+                             const sf::ContextSettings& settings) :
+    sf::RenderWindow(sf::VideoMode(width, height), title, style, settings)
 {
 }
 

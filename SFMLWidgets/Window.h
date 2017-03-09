@@ -17,7 +17,8 @@ class sfml_widgets::Window : public sf::RenderWindow
 {
 public:
     Window(uint32_t width, uint32_t height,
-           const std::string& title, uint32_t style = sf::Style::Default);
+           const std::string& title, uint32_t style = sf::Style::Default,
+           const sf::ContextSettings& settings = sf::ContextSettings());
 
     ~Window();
 
