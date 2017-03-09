@@ -14,52 +14,75 @@ INCLUDEPATH += SFML-2.4.2-MinGW-32/include
 LIBS += -LC:/Projects/GameMapEditor/SFML-2.4.2-MinGW-32/lib
 LIBS += -lsfml-graphics-d -lsfml-window-d -lsfml-system-d -lsfml-audio-d
 
-SOURCES += main.cpp \
-    MapEditor/Window.cpp \
-    MapEditor/PointTester.cpp \
-    MapEditor/Platform.cpp \
-    MapEditor/MainWindow.cpp \
-    MapEditor/Model.cpp \
-    MapEditor/CoordinateTranslation.cpp \
-    MapEditor/WorldView.cpp \
-    MapEditor/PanelView.cpp \
-    MapEditor/Button.cpp \
-    MapEditor/MovableButton.cpp \
-    MapEditor/VertexButton.cpp \
-    MapEditor/PlatformDelegate.cpp \
-    MapEditor/ClickableConvex.cpp \
-    MapEditor/Properted.cpp \
-    MapEditor/PlatformPropertiesDelegate.cpp \
-    MapEditor/ModelSubscriber.cpp \
-    MapEditor/Index.cpp \
-    MapEditor/ModelSaver.cpp \
-    TinyXml2/tinyxml2.cpp \
-    MapEditor/Delegate.cpp \
-    MapEditor/TextBox.cpp \
-    MapEditor/ToolbarView.cpp \
-    MapEditor/ModelLoader.cpp
-
 HEADERS += \
-    MapEditor/Window.h \
-    MapEditor/PointTester.h \
-    MapEditor/Platform.h \
-    MapEditor/MainWindow.h \
-    MapEditor/Model.h \
-    MapEditor/CoordinateTranslation.h \
-    MapEditor/WorldView.h \
-    MapEditor/PanelView.h \
-    MapEditor/Button.h \
-    MapEditor/MovableButton.h \
-    MapEditor/VertexButton.h \
-    MapEditor/PlatformDelegate.h \
-    MapEditor/ClickableConvex.h \
-    MapEditor/Properted.h \
-    MapEditor/PlatformPropertiesDelegate.h \
-    MapEditor/ModelSubscriber.h \
-    MapEditor/Index.h \
-    MapEditor/ModelSaver.h \
+#    MapEditor/Button.h \
+#    MapEditor/ClickableConvex.h \
+#    MapEditor/CoordinateTranslation.h \
+#    MapEditor/Delegate.h \
+#    MapEditor/Index.h \
+#    MapEditor/MainWindow.h \
+#    MapEditor/Model.h \
+#    MapEditor/ModelLoader.h \
+#    MapEditor/ModelSaver.h \
+#    MapEditor/ModelSubscriber.h \
+#    MapEditor/MovableButton.h \
+#    MapEditor/PanelView.h \
+#    MapEditor/Platform.h \
+#    MapEditor/PlatformDelegate.h \
+#    MapEditor/PlatformPropertiesDelegate.h \
+#    MapEditor/PointTester.h \
+#    MapEditor/Properted.h \
+#    MapEditor/TextBox.h \
+#    MapEditor/ToolbarView.h \
+#    MapEditor/VertexButton.h \
+#    MapEditor/Window.h \
+#    MapEditor/WorldView.h \
+    SFMLWidgets/Button.h \
+    SFMLWidgets/Clickable.h \
+    SFMLWidgets/ClickableConvex.h \
+    SFMLWidgets/ClickableRectangle.h \
+    SFMLWidgets/EventProcessor.h \
+    SFMLWidgets/Movable.h \
+    SFMLWidgets/PointTester.h \
+    SFMLWidgets/View.h \
+    SFMLWidgets/Widget.h \
+    SFMLWidgets/Window.h \
     TinyXml2/tinyxml2.h \
-    MapEditor/Delegate.h \
-    MapEditor/TextBox.h \
-    MapEditor/ToolbarView.h \
-    MapEditor/ModelLoader.h
+    SFMLWidgets/MovableRectangle.h
+
+SOURCES += main.cpp \
+#    MapEditor/Button.cpp \
+#    MapEditor/ClickableConvex.cpp \
+#    MapEditor/CoordinateTranslation.cpp \
+#    MapEditor/Delegate.cpp \
+#    MapEditor/Index.cpp \
+#    MapEditor/MainWindow.cpp \
+#    MapEditor/Model.cpp \
+#    MapEditor/ModelLoader.cpp \
+#    MapEditor/ModelSaver.cpp \
+#    MapEditor/ModelSubscriber.cpp \
+#    MapEditor/MovableButton.cpp \
+#    MapEditor/PanelView.cpp \
+#    MapEditor/Platform.cpp \
+#    MapEditor/PlatformDelegate.cpp \
+#    MapEditor/PlatformPropertiesDelegate.cpp \
+#    MapEditor/PointTester.cpp \
+#    MapEditor/Properted.cpp \
+#    MapEditor/TextBox.cpp \
+#    MapEditor/ToolbarView.cpp \
+#    MapEditor/VertexButton.cpp \
+#    MapEditor/Window.cpp \
+#    MapEditor/WorldView.cpp \
+    SFMLWidgets/Button.cpp \
+    SFMLWidgets/Clickable.cpp \
+    SFMLWidgets/ClickableConvex.cpp \
+    SFMLWidgets/ClickableRectangle.cpp \
+    SFMLWidgets/EventProcessor.cpp \
+    SFMLWidgets/Movable.cpp \
+    SFMLWidgets/PointTester.cpp \
+    SFMLWidgets/View.cpp \
+    SFMLWidgets/Widget.cpp \
+    SFMLWidgets/Window.cpp \
+    TinyXml2/tinyxml2.cpp \
+    SFMLWidgets/MovableRectangle.cpp
+
