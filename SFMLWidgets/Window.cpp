@@ -4,7 +4,8 @@
 sfml_widgets::Window::Window(uint32_t width, uint32_t height,
                              const std::string& title, uint32_t style,
                              const sf::ContextSettings& settings) :
-    sf::RenderWindow(sf::VideoMode(width, height), title, style, settings)
+    sf::RenderWindow(sf::VideoMode(width, height), title, style, settings),
+    _clearColor(sf::Color::Black)
 {
 }
 
@@ -38,7 +39,7 @@ void sfml_widgets::Window::run()
                     break;
             }
 
-        clear();
+        clear(_clearColor);
 
         for (sfml_widgets::View* view : _views)
         {
@@ -93,6 +94,11 @@ void sfml_widgets::Window::mouseMovedEvent(
         sfml_widgets::EventProcessor& eventProcessor = view.eventProcessor();
         eventProcessor.mouseMovedEvent(mapPixelToCoords(cursorPos));
     }
+}
+
+void sfml_widgets::Window::setClearColor(const sf::Color& color)
+{
+    _clearColor = color;
 }
 
 void sfml_widgets::Window::addView(sfml_widgets::View* view)

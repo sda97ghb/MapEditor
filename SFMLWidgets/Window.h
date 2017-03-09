@@ -28,10 +28,14 @@ public:
     void mouseButtonReleasedEvent(const sf::Event::MouseButtonEvent& event);
     void mouseMovedEvent(const sf::Event::MouseMoveEvent& event);
 
+    void setClearColor(const sf::Color& color);
+
 protected:
     friend sfml_widgets::View::View(sfml_widgets::Window*);
     void addView(sfml_widgets::View* view);
     std::list<sfml_widgets::View*> _views;
+
+    sf::Color _clearColor;
 };
 
 #endif // WINDOW_H

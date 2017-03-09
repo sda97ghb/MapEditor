@@ -94,6 +94,8 @@ map_editor::MainWindow::MainWindow() :
         std::cout << "Released at (" << _movRec->getPosition().x << ";" <<
                                         _movRec->getPosition().y << ")" << std::endl;
     });
+
+    setClearColor(sf::Color(64, 192, 255));
 }
 
 void map_editor::MainWindow::incereaseRaiting()
