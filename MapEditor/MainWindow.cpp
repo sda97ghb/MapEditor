@@ -1,138 +1,57 @@
 #include <iostream>
 
-#include "SFML/Graphics/Text.hpp"
+#include "MainWindow.h"
 
-#include "MapEditor/MainWindow.h"
-#include "MapEditor/Model.h"
-#include "MapEditor/ModelLoader.h"
-#include "MapEditor/ModelSaver.h"
-
-MainWindow::MainWindow() :
-    Window(1500, 700, "Game map editor"), // 1500 * 0.8 == 1200
-    _currentPlatform(nullptr),
-    _panelView(this),
-    _toolbarView(this),
-    _worldView(this)
+map_editor::MainWindow::MainWindow() :
+    sfml_widgets::Window(1500, 800, "SFMLWidgets test", sf::Style::Default)
 {
-    ModelLoader().load("C:/Projects/Builds/"
-                       "build-GameMapEditor-Desktop_Qt_5_7_0_MinGW_32bit-Debug/"
-                       "debug/MapLevels/map1.xml");
-//    Model& model = Model::instance();
-//    {
-//        Platform& platform = model.createPlatform();
-//        platform.move(0.0f, 0.0f);
-////        platform.shape.setFillColor(sf::Color(100, 80, 100));
+//    setClearColor(sf::Color(64, 192, 255));
+    setClearColor(sf::Color(30, 30, 30));
 
-//        std::list<sf::Vector2f> vertexes;
-//        vertexes.push_back(sf::Vector2f(-20.0f, -5.0f));
-//        vertexes.push_back(sf::Vector2f( 20.0f, -5.0f));
-//        vertexes.push_back(sf::Vector2f( 20.0f,  0.0f));
-//        vertexes.push_back(sf::Vector2f(-20.0f,  0.0f));
-//        platform.setShape(vertexes);
+    _panelView = new sfml_widgets::View(this);
+    _toolbarView = new sfml_widgets::View(this);
+    _worldView = new sfml_widgets::View(this);
 
-//        platform.setFillColor(sf::Color(255, 255, 255));
-//        static sf::Texture texture;
-//        texture.loadFromFile("C:/Projects/Game/Textures/stonebricks.png");
-//        texture.setRepeated(true);
-//        platform.setTexture(&texture);
-//        platform.setTextureRect(sf::IntRect(0, 0, 16 * 40, 16 * 5));
-//    }
-//    {
-//        Platform& platform = model.createPlatform();
-//        platform.move(0.0f, 0.0f);
-////        platform.shape.setFillColor(sf::Color(100, 80, 100));
+    _panelView->setViewport(sf::FloatRect(0.8f, 0.1f, 0.2f, 0.9f));
+    _panelView->setSize(300.0f, 700.0f);
+    _panelView->setCenter(150.0f, 350.0f);
 
-//        std::list<sf::Vector2f> vertexes;
-//        vertexes.push_back(sf::Vector2f(-20.0f,  5.0f));
-//        vertexes.push_back(sf::Vector2f( 20.0f,  5.0f));
-//        vertexes.push_back(sf::Vector2f( 20.0f, 10.0f));
-//        vertexes.push_back(sf::Vector2f(-20.0f, 10.0f));
-//        platform.setShape(vertexes);
+    _toolbarView->setViewport(sf::FloatRect(0.0f, 0.0f, 1.0f, 0.1f));
+    _toolbarView->setSize(1500.0f, 80.0f);
+    _toolbarView->setCenter(750.0f, 40.0f);
 
-//        platform.setFillColor(sf::Color(255, 255, 255));
-//        static sf::Texture texture;
-//        texture.loadFromFile("C:/Projects/Game/Textures/stonebricks.png");
-//        texture.setRepeated(true);
-//        platform.setTexture(&texture);
-//        platform.setTextureRect(sf::IntRect(0, 0, 16 * 40, 16 * 5));
-//    }
+    _worldView->setViewport(sf::FloatRect(0.0f, 0.1f, 0.8f, 0.9f));
+    _worldView->setSize(36.0f, -21.0f);
+    _worldView->setCenter(0.0f, 0.0f);
+
+    _panelSplitter = new sfml_widgets::RectangleWidget(_panelView);
+    _panelSplitter->setFillColor(sf::Color(120, 120, 120));
+    _panelSplitter->setPosition(0.0f, 0.0f);
+    _panelSplitter->setSize(sf::Vector2f(2.0f, _panelView->getSize().y));
+
+    _panelSplitter = new sfml_widgets::RectangleWidget(_toolbarView);
+    _panelSplitter->setFillColor(sf::Color(120, 120, 120));
+    _panelSplitter->setPosition(0.0f, _toolbarView->getSize().y - 2.0f);
+    _panelSplitter->setSize(sf::Vector2f(_toolbarView->getSize().x, 2.0f));
+
+    constructToolbar();
 }
 
-MainWindow::~MainWindow()
+void map_editor::MainWindow::constructToolbar()
 {
-    ModelSaver().save("C:/Projects/Builds/"
-                      "build-GameMapEditor-Desktop_Qt_5_7_0_MinGW_32bit-Debug/"
-                      "debug/MapLevels/map1.xml");
-}
+    _addPlatformButton = new sfml_widgets::Button(_toolbarView);
+    _addPlatformButton->setPosition(10.0f, 10.0f);
+    _addPlatformButton->setSize(sf::Vector2f(60.0f, 60.0f));
+    _addPlatformButton->setFillColor(sf::Color(100, 100, 100));
+    _addPlatformButton->setOnClickCallback([=] () {
+        std::cout << "Add platform." << std::endl;
+    });
 
-void MainWindow::paint()
-{
-    const sf::Color CLEAR_COLOR = sf::Color(30, 30, 30);
-    clear(CLEAR_COLOR);
-
-    setView(_panelView);
-    _panelView.paint();
-
-    setView(_toolbarView);
-    _toolbarView.paint();
-
-    setView(_worldView);
-    _worldView.paint();
-
-    display();
-}
-
-void MainWindow::update()
-{
-    const float SCROLLING_SPEED = 0.03f;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-        _worldView.move(-SCROLLING_SPEED, 0.0f);
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-        _worldView.move(SCROLLING_SPEED, 0.0f);
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
-        _worldView.move(0.0f, -SCROLLING_SPEED);
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
-        _worldView.move(0.0f, SCROLLING_SPEED);
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
-        _worldView.setCenter(0.0f, 0.0f);
-}
-
-void MainWindow::mousePressedEvent(const sf::Event::MouseButtonEvent& event)
-{
-    if (event.x < 1200)
-    {
-        setView(_worldView);
-        _worldView.mousePressedEvent(event);
-    }
-}
-
-void MainWindow::mouseReleasedEvent(const sf::Event::MouseButtonEvent& event)
-{
-    if (event.y < 80)
-    {
-        setView(_toolbarView);
-        _toolbarView.mouseReleasedEvent(event);
-    }
-    else
-    {
-        if (event.x < 1200)
-        {
-            setView(_worldView);
-            _worldView.mouseReleasedEvent(event);
-        }
-        else
-        {
-            setView(_panelView);
-            _panelView.mouseReleasedEvent(event);
-        }
-    }
-}
-
-void MainWindow::mouseMovedEvent(const sf::Event::MouseMoveEvent& event)
-{
-    if (event.x < 1200)
-    {
-        setView(_worldView);
-        _worldView.mouseMovedEvent(event);
-    }
+    _deleteSelectedButton = new sfml_widgets::Button(_toolbarView);
+    _deleteSelectedButton->setPosition(_toolbarView->getSize().x - 70.0f, 10.0f);
+    _deleteSelectedButton->setSize(sf::Vector2f(60.0f, 60.0f));
+    _deleteSelectedButton->setFillColor(sf::Color::Red);
+    _deleteSelectedButton->setOnClickCallback([=] () {
+        std::cout << "Delete selected." << std::endl;
+    });
 }

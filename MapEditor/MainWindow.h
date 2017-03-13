@@ -1,36 +1,36 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "MapEditor/PanelView.h"
-#include "MapEditor/PointTester.h"
-#include "MapEditor/ToolbarView.h"
-#include "MapEditor/Window.h"
-#include "MapEditor/WorldView.h"
+#include "SFMLWidgets/Button.h"
+#include "SFMLWidgets/ClickableConvex.h"
+#include "SFMLWidgets/MovableRectangle.h"
+#include "SFMLWidgets/RectangleWidget.h"
+#include "SFMLWidgets/View.h"
+#include "SFMLWidgets/Window.h"
 
-class Platform;
+namespace map_editor
+{
+    class MainWindow;
+}
 
-class MainWindow : public Window
+class map_editor::MainWindow : public sfml_widgets::Window
 {
 public:
     MainWindow();
-    ~MainWindow();
-
-    void paint();
-
-    void update();
-
-    void mousePressedEvent(const sf::Event::MouseButtonEvent& event);
-    void mouseReleasedEvent(const sf::Event::MouseButtonEvent& event);
-    void mouseMovedEvent(const sf::Event::MouseMoveEvent& event);
 
 private:
-    const float SCALE_FACTOR = 3.0f / 100.0f;
+    void constructToolbar();
 
-    Platform* _currentPlatform;
+    sfml_widgets::View* _panelView;
+    sfml_widgets::View* _toolbarView;
+    sfml_widgets::View* _worldView;
 
-    PanelView   _panelView;
-    ToolbarView _toolbarView;
-    WorldView   _worldView;
+    sfml_widgets::RectangleWidget* _panelSplitter;
+    sfml_widgets::RectangleWidget* _toolbarSplitter;
+
+    // Toolbar
+    sfml_widgets::Button* _addPlatformButton;
+    sfml_widgets::Button* _deleteSelectedButton;
 };
 
 #endif // MAINWINDOW_H

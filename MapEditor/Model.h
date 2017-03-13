@@ -3,37 +3,35 @@
 
 #include <list>
 
-#include "MapEditor/Index.h"
-#include "MapEditor/ModelSubscriber.h"
-#include "MapEditor/Platform.h"
+#include "SFML/System/Vector2.hpp"
 
-class Model
+#include "MapEditor/Index.h"
+
+namespace map_editor
+{
+    class Model;
+}
+
+class map_editor::Model
 {
 public:
-    static Model& instance();
+    class Platform;
 
-    Platform& createPlatform();
-
-    std::list<Platform>& platforms();
-
-    Index currentIndex();
-    void selectElement(Platform& platform);
-
-    void addSubsriber(ModelSubscriber& subscriber);
-    void notifySelected(Index index);
-    void notifyChanged(Index index);
-
-private:
     Model();
 
-    Model(const Model& model) = delete;
-    void operator= (const Model& model) = delete;
+private:
+    map_editor::Index _currentIndex;
 
-    std::list<Platform> _platforms;
+    std::list<map_editor::Model::Platform>& _platforms;
+};
 
-    Index _currentIndex;
+class map_editor::Model::Platform : public map_editor::Indexed
+{
+public:
+//    const std::list<sf::Vector2f>& vertexes() const;
 
-    std::list<ModelSubscriber*> _subsribers;
+private:
+    std::list<sf::Vector2f> _vertexes;
 };
 
 #endif // MODEL_H

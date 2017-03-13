@@ -1,30 +1,27 @@
 #ifndef INDEX_H
 #define INDEX_H
 
-#include "MapEditor/Properted.h"
+namespace map_editor
+{
+    class Index;
+    class Indexed;
+}
 
-class Index
+class map_editor::Index
 {
 public:
     enum class Type
     {
-        null,
         platform
     };
 
-    Index() :
-        type(Type::null),
-        object(nullptr)
-    {}
+    Index();
 
-    Index(Type type_, Properted* object_) :
-        type(type_),
-        object(object_)
-    {}
-
-    Type type;
-
-    Properted* object;
+private:
+    Type _type;
+    map_editor::Indexed* _object;
 };
+
+class map_editor::Indexed {};
 
 #endif // INDEX_H
