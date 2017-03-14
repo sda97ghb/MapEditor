@@ -1,0 +1,5 @@
+var searchData=
+[
+  ['test',['test',['../classsfml__widgets_1_1_point_tester.html#a64dae5d1620f49c2571b40bb9dd829ea',1,'sfml_widgets::PointTester::test(const sf::Vector2f &amp;point, const sf::CircleShape &amp;shape)'],['../classsfml__widgets_1_1_point_tester.html#a55658910107081135a8415308c963e97',1,'sfml_widgets::PointTester::test(sf::Vector2f point, const sf::ConvexShape &amp;shape)'],['../classsfml__widgets_1_1_point_tester.html#ac36e574478e3330f2cdca2a39da8eec7',1,'sfml_widgets::PointTester::test(const sf::Vector2f &amp;point, const sf::RectangleShape &amp;shape)']]],
+  ['testforclick',['testForClick',['../classsfml__widgets_1_1_clickable.html#ac6d19a21c14c971dabc3363d646c3f97',1,'sfml_widgets::Clickable::testForClick()'],['../classsfml__widgets_1_1_clickable_convex.html#a66e465adab1cc9af80c228331b11cde1',1,'sfml_widgets::ClickableConvex::testForClick()'],['../classsfml__widgets_1_1_clickable_rectangle.html#ab0ac0444fc3ad6d8bdebb2a2aa44ee44',1,'sfml_widgets::ClickableRectangle::testForClick()']]]
+];
