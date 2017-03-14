@@ -18,7 +18,7 @@ class sfml_widgets::ClickableRectangle : public sfml_widgets::Clickable,
 {
 public:
     /// @brief Constructor.
-    /// @details Place button on given view and registry it in view's window.
+    /// @details Place the button on given view and registry it in view's window.
     /// @param view View where button will be placed.
     ClickableRectangle(sfml_widgets::View* view);
 

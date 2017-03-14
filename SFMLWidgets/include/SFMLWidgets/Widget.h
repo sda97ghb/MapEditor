@@ -7,10 +7,14 @@ namespace sfml_widgets
     class Window;
 }
 
+/// @brief Base abstract widget class.
 class sfml_widgets::Widget
 {
 public:
+    /// @brief Destructor.
     virtual ~Widget();
+
+    /// @brief Call window draw method to paint the widget.
     virtual void paint(sfml_widgets::Window& window) = 0;
 };
 

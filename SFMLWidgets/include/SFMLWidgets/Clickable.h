@@ -12,11 +12,11 @@ namespace sfml_widgets
     class View;
 }
 
-/// @brief Abstract clickable object. Base class for all objects that should
+/// @brief Abstract clickable widget. Base class for all objects that should
 /// have behaviour similar to button.
 /// @note This class don't know anything about shape of button. You should use
 /// ClickableRectangle, ClickableConvex, ClickableCircle or inherited from them
-/// classes.
+/// widgets.
 class sfml_widgets::Clickable : public sfml_widgets::Widget
 {
 public:
@@ -25,11 +25,11 @@ public:
     Clickable(sfml_widgets::View* view);
 
     /// @brief Set callback for click action.
-    /// @param [in] callback Lambda or
+    /// @param [in] callback Lambda or regular c++ function.
     void setOnClickCallback(const std::function<void()>& callback);
 
 protected:
-    std::function<void()> _onClickCallback; ///< On click event callback.
+    std::function<void()> _onClickCallback; ///< OnClick event callback.
 
 private:
     // Allow EventProcessor to click this button.

@@ -7,22 +7,19 @@ sfml_widgets::Movable::Movable(View* view)
     view->eventProcessor().registryMovable(this);
 }
 
-void sfml_widgets::Movable::setOnGrabCallback(
-        const std::function<void ()>& onGrabCallback)
+void sfml_widgets::Movable::setOnGrabCallback(const std::function<void ()>& callback)
 {
-    _onGrabCallback = onGrabCallback;
+    _onGrabCallback = callback;
 }
 
-void sfml_widgets::Movable::setOnReleaseCallback(
-        const std::function<void ()>& onReleaseCallback)
+void sfml_widgets::Movable::setOnReleaseCallback(const std::function<void ()>& callback)
 {
-    _onReleaseCallback = onReleaseCallback;
+    _onReleaseCallback = callback;
 }
 
-void sfml_widgets::Movable::setOnMoveCallback(
-        const std::function<void ()>& onMoveCallback)
+void sfml_widgets::Movable::setOnMoveCallback(const std::function<void ()>& callback)
 {
-    _onMoveCallback = onMoveCallback;
+    _onMoveCallback = callback;
 }
 
 void sfml_widgets::Movable::release()
