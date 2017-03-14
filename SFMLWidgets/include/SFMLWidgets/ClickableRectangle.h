@@ -25,7 +25,7 @@ public:
 private:
     /// @brief Test if cursor is on the button make click, otherwise don't do
     /// anything.
-    void testForClick(const sf::Vector2f& cursorPos);
+    bool testForClick(const sf::Vector2f& cursorPos);
 
     /// @brief Call window draw method to paint the button.
     void paint(sfml_widgets::Window& window);

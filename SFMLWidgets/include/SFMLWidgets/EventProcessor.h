@@ -36,6 +36,9 @@ public:
     /// release didn't work.
     void registryMovable(sfml_widgets::Movable* movable);
 
+    /// @brief Delete clickable from the list.
+    void deleteClickable(sfml_widgets::Clickable* clickable);
+
 private:
     std::list<sfml_widgets::Clickable*> _clickables; ///< List of all registred clickable.
     std::list<sfml_widgets::Movable*> _movables; ///< List of all registred movable.

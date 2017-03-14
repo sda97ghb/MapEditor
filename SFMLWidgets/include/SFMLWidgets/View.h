@@ -33,6 +33,9 @@ public:
     /// @brief Registry new widget.
     void addWidget(sfml_widgets::Widget* widget);
 
+    /// @brief Delete registred widget.
+    void deleteWidget(sfml_widgets::Widget* widget);
+
     /// @brief Returns the list of all registred widgets.
     std::list<sfml_widgets::Widget*>& widgets();
 

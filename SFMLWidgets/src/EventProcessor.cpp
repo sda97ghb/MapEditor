@@ -1,3 +1,5 @@
+#include <algorithm>
+
 #include "SFMLWidgets/Clickable.h"
 #include "SFMLWidgets/EventProcessor.h"
 #include "SFMLWidgets/Movable.h"
@@ -18,7 +20,8 @@ void sfml_widgets::EventProcessor::mouseButtonReleasedEvent(
     if (button == sf::Mouse::Button::Left)
     {
         for (sfml_widgets::Clickable* clickable : _clickables)
-            clickable->testForClick(cursorPos);
+            if (clickable->testForClick(cursorPos))
+                break;
         for (sfml_widgets::Movable* movable : _movables)
             movable->release();
     }
@@ -40,4 +43,14 @@ void sfml_widgets::EventProcessor::registryMovable(
         sfml_widgets::Movable* movable)
 {
     _movables.push_back(movable);
+}
+
+void sfml_widgets::EventProcessor::deleteClickable(
+        sfml_widgets::Clickable* clickable)
+{
+    auto clickableIter = std::find(_clickables.begin(), _clickables.end(),
+                                   clickable);
+    auto clickableIterEnd = clickableIter;
+    std::advance(clickableIterEnd, 1);
+    _clickables.erase(clickableIter, clickableIterEnd);
 }

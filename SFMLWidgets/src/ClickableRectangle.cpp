@@ -7,10 +7,14 @@ sfml_widgets::ClickableRectangle::ClickableRectangle(sfml_widgets::View* view) :
 {
 }
 
-void sfml_widgets::ClickableRectangle::testForClick(const sf::Vector2f& cursorPos)
+bool sfml_widgets::ClickableRectangle::testForClick(const sf::Vector2f& cursorPos)
 {
     if (sfml_widgets::PointTester::test(cursorPos, *this))
+    {
         _onClickCallback();
+        return true;
+    }
+    return false;
 }
 
 void sfml_widgets::ClickableRectangle::paint(sfml_widgets::Window& window)

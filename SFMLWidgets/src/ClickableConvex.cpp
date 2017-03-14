@@ -7,10 +7,14 @@ sfml_widgets::ClickableConvex::ClickableConvex(sfml_widgets::View* view) :
 {
 }
 
-void sfml_widgets::ClickableConvex::testForClick(const sf::Vector2f& cursorPos)
+bool sfml_widgets::ClickableConvex::testForClick(const sf::Vector2f& cursorPos)
 {
     if (sfml_widgets::PointTester::test(cursorPos, *this))
+    {
         _onClickCallback();
+        return true;
+    }
+    return false;
 }
 
 void sfml_widgets::ClickableConvex::paint(sfml_widgets::Window& window)

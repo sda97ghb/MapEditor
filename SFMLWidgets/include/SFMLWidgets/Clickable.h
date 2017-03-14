@@ -24,6 +24,8 @@ public:
     /// @details Place button on given view and registry it in view's window.
     Clickable(sfml_widgets::View* view);
 
+    ~Clickable();
+
     /// @brief Set callback for click action.
     /// @param [in] callback Lambda or regular c++ function.
     void setOnClickCallback(const std::function<void()>& callback);
@@ -37,7 +39,9 @@ private:
                 const sf::Mouse::Button &button, const sf::Vector2f &cursorPos);
     /// @brief Test if cursor is on the button make click, otherwise don't do
     /// anything.
-    virtual void testForClick(const sf::Vector2f& cursorPos) = 0;
+    virtual bool testForClick(const sf::Vector2f& cursorPos) = 0;
+
+    sfml_widgets::View* _view; ///< View where widget placed.
 };
 
 #endif // CLICKABLE_H

@@ -3,6 +3,9 @@ CONFIG += console c++11
 CONFIG -= app_bundle
 CONFIG -= qt
 
+QMAKE_CXXFLAGS_DEBUG += -std=c++14
+QMAKE_LFLAGS_DEBUG += -std=c++14
+
 #QMAKE_CXXFLAGS_DEBUG += -pg
 #QMAKE_LFLAGS_DEBUG += -pg
 
@@ -22,12 +25,16 @@ LIBS += -lsfml-graphics-d -lsfml-window-d -lsfml-system-d -lsfml-audio-d
 
 HEADERS += \
     Index.h \
-    MainWindow.h \
     Model.h \
-    View.h
+    MainWindow.h \
+    WorldViewConstructor.h \
+    ModelSubscriber.h \
+    Platform.h
 
 SOURCES += main.cpp \
     Index.cpp \
     MainWindow.cpp \
     Model.cpp \
-    View.cpp
+    WorldViewConstructor.cpp \
+    ModelSubscriber.cpp \
+    Platform.cpp
