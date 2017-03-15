@@ -1,4 +1,10 @@
+#include "MapEditor/Model.h"
 #include "MapEditor/ModelSubscriber.h"
+
+map_editor::ModelSubscriber::ModelSubscriber()
+{
+    Model::instance().addSubscriber(this);
+}
 
 void map_editor::ModelSubscriber::platformAdded(const map_editor::Index& index)
 {

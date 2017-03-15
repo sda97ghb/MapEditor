@@ -39,6 +39,9 @@ public:
     /// @brief Delete clickable from the list.
     void deleteClickable(sfml_widgets::Clickable* clickable);
 
+    /// @brief Delete movable from the list.
+    void deleteMovable(sfml_widgets::Movable* movable);
+
 private:
     std::list<sfml_widgets::Clickable*> _clickables; ///< List of all registred clickable.
     std::list<sfml_widgets::Movable*> _movables; ///< List of all registred movable.

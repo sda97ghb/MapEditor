@@ -50,7 +50,15 @@ void sfml_widgets::EventProcessor::deleteClickable(
 {
     auto clickableIter = std::find(_clickables.begin(), _clickables.end(),
                                    clickable);
-    auto clickableIterEnd = clickableIter;
-    std::advance(clickableIterEnd, 1);
-    _clickables.erase(clickableIter, clickableIterEnd);
+    if (clickableIter == _clickables.end())
+        return;
+    _clickables.erase(clickableIter);
+}
+
+void sfml_widgets::EventProcessor::deleteMovable(sfml_widgets::Movable* movable)
+{
+    auto movableIter = std::find(_movables.begin(), _movables.end(), movable);
+    if (movableIter == _movables.end())
+        return;
+    _movables.erase(movableIter);
 }

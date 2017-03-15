@@ -29,7 +29,8 @@ HEADERS += \
     MainWindow.h \
     WorldViewConstructor.h \
     ModelSubscriber.h \
-    Platform.h
+    Platform.h \
+    PlatformDelegate.h
 
 SOURCES += main.cpp \
     Index.cpp \
@@ -37,4 +38,5 @@ SOURCES += main.cpp \
     Model.cpp \
     WorldViewConstructor.cpp \
     ModelSubscriber.cpp \
-    Platform.cpp
+    Platform.cpp \
+    PlatformDelegate.cpp

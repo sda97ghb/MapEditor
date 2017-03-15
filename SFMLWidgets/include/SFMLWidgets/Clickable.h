@@ -37,7 +37,8 @@ private:
     // Allow EventProcessor to click this button.
     friend void sfml_widgets::EventProcessor::mouseButtonReleasedEvent(
                 const sf::Mouse::Button &button, const sf::Vector2f &cursorPos);
-    /// @brief Test if cursor is on the button make click, otherwise don't do
+
+    /// @brief Test if cursor is on the button makes click, otherwise doesn't do
     /// anything.
     virtual bool testForClick(const sf::Vector2f& cursorPos) = 0;
 

@@ -3,8 +3,14 @@
 
 sfml_widgets::Movable::Movable(View* view)
 {
+    _view = view;
     view->addWidget(this);
     view->eventProcessor().registryMovable(this);
+}
+
+sfml_widgets::Movable::~Movable()
+{
+    _view->eventProcessor().deleteMovable(this);
 }
 
 void sfml_widgets::Movable::setOnGrabCallback(const std::function<void ()>& callback)

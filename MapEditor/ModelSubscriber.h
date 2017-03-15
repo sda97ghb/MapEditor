@@ -9,6 +9,8 @@ namespace map_editor
 class map_editor::ModelSubscriber
 {
 public:
+    ModelSubscriber();
+
     virtual void platformAdded(const map_editor::Index& index);
     virtual void platformDeleted(const map_editor::Index& index);
     virtual void platformUpdated(const map_editor::Index& index);

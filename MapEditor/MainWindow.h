@@ -11,6 +11,7 @@
 #include "MapEditor/Index.h"
 #include "MapEditor/ModelSubscriber.h"
 #include "MapEditor/Platform.h"
+#include "MapEditor/PlatformDelegate.h"
 #include "MapEditor/WorldViewConstructor.h"
 
 namespace map_editor
@@ -46,6 +47,7 @@ private:
 
     // World view
     std::list<map_editor::Platform*> _platforms;
+    map_editor::PlatformDelegate* _platformDelegate;
 };
 
 #endif // MAP_EDITOR_MAINWINDOW_H

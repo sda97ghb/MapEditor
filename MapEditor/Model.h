@@ -21,6 +21,7 @@ public:
     static Model& instance();
 
     Platform& createPlatform();
+    void deletePlatform(map_editor::Model::Platform& platform);
     std::list<map_editor::Model::Platform>& platforms();
     void notifyPlatformAdded(const map_editor::Index& platformIndex);
     void notifyPlatformDeleted(const map_editor::Index& platformIndex);
@@ -30,8 +31,6 @@ public:
     void notifyIndexSelected();
 
     void deleteCurrentIndex();
-
-    void deletePlatform(map_editor::Model::Platform* platform);
 
     void addSubscriber(map_editor::ModelSubscriber* subscriber);
 
@@ -51,6 +50,8 @@ private:
 class map_editor::Model::Platform : public map_editor::Indexed
 {
 public:
+    Platform();
+    ~Platform();
     void setVertexes(const std::list<sf::Vector2f>& vertexes);
     const std::list<sf::Vector2f>& vertexes() const;
 

@@ -17,12 +17,15 @@ namespace sfml_widgets
 /// @note This class don't know anything about shape. You should use
 /// MovableRectangle, MovableConvex, MovableCircle, or inherited from them
 /// widgets.
-class sfml_widgets::Movable : sfml_widgets::Widget
+class sfml_widgets::Movable : public sfml_widgets::Widget
 {
 public:
     /// @brief Constructor.
     /// @details Place a button on given view and registry it in view's window.
     Movable(sfml_widgets::View* view);
+
+    /// @brief Destructor.
+    ~Movable();
 
     /// @brief Set callback for grab action.
     /// @param [in] callback Lambda or regular c++ function.
@@ -63,6 +66,8 @@ private:
 
     /// @brief Move the widget taking into account _dx and _dy.
     virtual void move(const sf::Vector2f& cursorPos) = 0;
+
+    sfml_widgets::View* _view; ///< View where widget placed.
 };
 
 #endif // MOVABLE_H

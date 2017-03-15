@@ -4,10 +4,9 @@
 #include "MapEditor/Model.h"
 
 map_editor::MainWindow::MainWindow() :
-    sfml_widgets::Window(1500, 800, "SFMLWidgets test", sf::Style::Default)
+    sfml_widgets::Window(1500, 800, "SFMLWidgets test", sf::Style::Default),
+    _platformDelegate(nullptr)
 {
-    Model::instance().addSubscriber(this);
-
 //    setClearColor(sf::Color(64, 192, 255));
     setClearColor(sf::Color(30, 30, 30));
 
@@ -47,9 +46,9 @@ void map_editor::MainWindow::constructToolbar()
     _addPlatformButton->setSize(sf::Vector2f(60.0f, 60.0f));
     _addPlatformButton->setFillColor(sf::Color(100, 100, 100));
     _addPlatformButton->setOnClickCallback([=] () {
-        std::cout << "Add platform clicked." << std::endl;
         map_editor::Model::Platform& platform =
                 map_editor::Model::instance().createPlatform();
+
         std::list<sf::Vector2f> vertexes;
         vertexes.emplace_back(-1.0f, -1.0f);
         vertexes.emplace_back( 1.0f, -1.0f);
@@ -63,7 +62,6 @@ void map_editor::MainWindow::constructToolbar()
     _deleteSelectedButton->setSize(sf::Vector2f(60.0f, 60.0f));
     _deleteSelectedButton->setFillColor(sf::Color::Red);
     _deleteSelectedButton->setOnClickCallback([=] () {
-        std::cout << "Delete current index clicked." << std::endl;
         Model::instance().deleteCurrentIndex();
     });
 }
@@ -91,22 +89,27 @@ void map_editor::MainWindow::platformDeleted(const map_editor::Index& index)
     map_editor::Model::Platform* platformModel =
             static_cast<map_editor::Model::Platform*>(index.object());
 
-    map_editor::Platform* platformView = nullptr;
-    for (map_editor::Platform* platform : _platforms)
-        if (platform->platformModel() == platformModel)
-        {
-            platformView = platform;
-            break;
-        }
-    if (platformView == nullptr)
+    auto platformIter = std::find_if(_platforms.begin(), _platforms.end(),
+    [&] (map_editor::Platform* platform) {
+        return platform->platformModel() == platformModel;
+    });
+    if (platformIter == _platforms.end())
         return;
 
-    auto platformIter = std::find(_platforms.begin(), _platforms.end(),
-                                  platformView);
+    if (_platformDelegate != nullptr)
+    {
+        if (_platformDelegate->platform() == *platformIter)
+        {
+            delete _platformDelegate;
+            _platformDelegate = nullptr;
+        }
+    }
+
     auto platformIterEnd = platformIter;
     std::advance(platformIterEnd, 1);
     _platforms.erase(platformIter, platformIterEnd);
-    _worldView->deleteWidget(platformView);
+
+    _worldView->deleteWidget(*platformIter);
 
     std::cout << "Platform deleted: " << std::to_string(index) << std::endl;
 }
@@ -116,25 +119,40 @@ void map_editor::MainWindow::platformUpdated(const map_editor::Index& index)
     map_editor::Model::Platform* platformModel =
             static_cast<map_editor::Model::Platform*>(index.object());
 
-    map_editor::Platform* platformView = nullptr;
-    for (map_editor::Platform* platform : _platforms)
-        if (platform->platformModel() == platformModel)
-        {
-            platformView = platform;
-            break;
-        }
-    if (platformView == nullptr)
+    auto platformIter = std::find_if(_platforms.begin(), _platforms.end(),
+    [=] (map_editor::Platform* platform) {
+        return platform->platformModel() == platformModel;
+    });
+    if (platformIter == _platforms.end())
         return;
 
-    platformView->setPointCount(platformModel->vertexes().size());
+    map_editor::Platform* platform = *platformIter;
+
+    platform->setPointCount(platformModel->vertexes().size());
     int i = 0;
     for (const sf::Vector2f& vertex : platformModel->vertexes())
-        platformView->setPoint(i++, vertex);
+        platform->setPoint(i++, vertex);
 
     std::cout << "Platform updated: " << std::to_string(index) << std::endl;
 }
 
 void map_editor::MainWindow::indexSelected(const map_editor::Index& index)
 {
+    map_editor::Model::Platform* platformModel =
+            static_cast<map_editor::Model::Platform*>(index.object());
+
+    auto platformIter = std::find_if(_platforms.begin(), _platforms.end(),
+    [=] (map_editor::Platform* platform) {
+        return platform->platformModel() == platformModel;
+    });
+    if (platformIter == _platforms.end())
+        return;
+
+    map_editor::Platform* platform = *platformIter;
+
+    if (_platformDelegate != nullptr)
+        delete _platformDelegate;
+    _platformDelegate = new map_editor::PlatformDelegate(platform, _worldView);
+
     std::cout << "Index selected: " << std::to_string(index) << std::endl;
 }

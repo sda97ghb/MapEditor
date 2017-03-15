@@ -44,6 +44,8 @@ private:
     map_editor::Indexed* _object;
 };
 
-class map_editor::Indexed {};
+class map_editor::Indexed
+{
+};
 
 #endif // MAP_EDITOR_INDEX_H
