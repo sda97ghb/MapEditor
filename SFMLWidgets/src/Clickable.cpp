@@ -1,10 +1,9 @@
 #include "SFMLWidgets/Clickable.h"
 #include "SFMLWidgets/View.h"
 
-sfml_widgets::Clickable::Clickable(View* view)
+sfml_widgets::Clickable::Clickable(View* view) :
+    Widget(view)
 {
-    _view = view;
-    view->addWidget(this);
     view->eventProcessor().registryClickable(this);
 }
 

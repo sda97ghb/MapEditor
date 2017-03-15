@@ -10,7 +10,8 @@ void sfml_widgets::EventProcessor::mouseButtonPressedEvent(
     if (button == sf::Mouse::Button::Left)
     {
         for (sfml_widgets::Movable* movable : _movables)
-            movable->grab(cursorPos);
+            if (movable->testForGrab(cursorPos))
+                break;
     }
 }
 
@@ -19,11 +20,12 @@ void sfml_widgets::EventProcessor::mouseButtonReleasedEvent(
 {
     if (button == sf::Mouse::Button::Left)
     {
+        for (sfml_widgets::Movable* movable : _movables)
+            if (movable->testForRelease())
+                return;
         for (sfml_widgets::Clickable* clickable : _clickables)
             if (clickable->testForClick(cursorPos))
                 break;
-        for (sfml_widgets::Movable* movable : _movables)
-            movable->release();
     }
 }
 

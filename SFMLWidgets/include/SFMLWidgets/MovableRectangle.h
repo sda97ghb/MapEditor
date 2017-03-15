@@ -23,7 +23,7 @@ public:
 private:
     /// @brief Test if cursor is on the widget grab it, otherwise don't do
     /// anything.
-    void grab(const sf::Vector2f& cursorPos);
+    bool testForGrab(const sf::Vector2f& cursorPos);
 
     /// @brief Move the widget taking into account _dx and _dy.
     void move(const sf::Vector2f &cursorPos);

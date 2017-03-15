@@ -6,20 +6,25 @@ sfml_widgets::MovableRectangle::MovableRectangle(sfml_widgets::View* view) :
     sfml_widgets::Movable(view)
 {}
 
-void sfml_widgets::MovableRectangle::grab(const sf::Vector2f& cursorPos)
+bool sfml_widgets::MovableRectangle::testForGrab(const sf::Vector2f& cursorPos)
 {
     if (!sfml_widgets::PointTester::test(cursorPos, *this))
-        return;
+        return false;
 
     _dx = getPosition().x - cursorPos.x;
     _dy = getPosition().y - cursorPos.y;
     _canMove = true;
+    _onGrabCallback();
+    return true;
 }
 
 void sfml_widgets::MovableRectangle::move(const sf::Vector2f& cursorPos)
 {
     if (_canMove)
+    {
         setPosition(cursorPos.x + _dx, cursorPos.y + _dy);
+        _onMoveCallback();
+    }
 }
 
 void sfml_widgets::MovableRectangle::paint(sfml_widgets::Window& window)

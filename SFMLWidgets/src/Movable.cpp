@@ -1,10 +1,12 @@
 #include "SFMLWidgets/Movable.h"
 #include "SFMLWidgets/View.h"
 
-sfml_widgets::Movable::Movable(View* view)
+sfml_widgets::Movable::Movable(View* view) :
+    Widget(view),
+    _canMove(false),
+    _dx(0.0f),
+    _dy(0.0f)
 {
-    _view = view;
-    view->addWidget(this);
     view->eventProcessor().registryMovable(this);
 }
 
@@ -28,8 +30,12 @@ void sfml_widgets::Movable::setOnMoveCallback(const std::function<void ()>& call
     _onMoveCallback = callback;
 }
 
-void sfml_widgets::Movable::release()
+bool sfml_widgets::Movable::testForRelease()
 {
-    _canMove = false;
+    if (!_canMove)
+        return false;
+
     _onReleaseCallback();
+    _canMove = false;
+    return true;
 }

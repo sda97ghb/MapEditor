@@ -41,8 +41,6 @@ private:
     /// @brief Test if cursor is on the button makes click, otherwise doesn't do
     /// anything.
     virtual bool testForClick(const sf::Vector2f& cursorPos) = 0;
-
-    sfml_widgets::View* _view; ///< View where widget placed.
 };
 
 #endif // CLICKABLE_H

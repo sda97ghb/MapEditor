@@ -59,15 +59,13 @@ private:
 
     /// @brief Test if cursor is on the widget grab it, otherwise don't do
     /// anything.
-    virtual void grab(const sf::Vector2f& cursorPos) = 0;
+    virtual bool testForGrab(const sf::Vector2f& cursorPos) = 0;
 
     /// @brief Release the widget without any condition.
-    virtual void release();
+    virtual bool testForRelease();
 
     /// @brief Move the widget taking into account _dx and _dy.
     virtual void move(const sf::Vector2f& cursorPos) = 0;
-
-    sfml_widgets::View* _view; ///< View where widget placed.
 };
 
 #endif // MOVABLE_H

@@ -27,7 +27,8 @@ public:
     map_editor::Platform* platform() const;
 
 private:
-    void addVertexButton(const sf::Vector2f& position, sfml_widgets::View* view);
+    void addVertexButton(const sf::Vector2f& position, int vertexNumber,
+                         sfml_widgets::View* view);
 
     std::list<sfml_widgets::MovableRectangle*> _vertexButtons;
 
