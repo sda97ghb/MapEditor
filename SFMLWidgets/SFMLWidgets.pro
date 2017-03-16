@@ -23,6 +23,7 @@ HEADERS += \
     include/SFMLWidgets/ClickableRectangle.h \
     include/SFMLWidgets/EventProcessor.h \
     include/SFMLWidgets/Movable.h \
+    include/SFMLWidgets/MovableConvex.h \
     include/SFMLWidgets/MovableRectangle.h \
     include/SFMLWidgets/PointTester.h \
     include/SFMLWidgets/RectangleWidget.h \
@@ -37,6 +38,7 @@ SOURCES += \
     src/ClickableRectangle.cpp \
     src/EventProcessor.cpp \
     src/Movable.cpp \
+    src/MovableConvex.cpp \
     src/MovableRectangle.cpp \
     src/PointTester.cpp \
     src/RectangleWidget.cpp \
