@@ -11,6 +11,7 @@ var searchData=
   ['_5fongrabcallback',['_onGrabCallback',['../classsfml__widgets_1_1_movable.html#a7f8c2bfe41bc6fea1acb0a9034248ff2',1,'sfml_widgets::Movable']]],
   ['_5fonmovecallback',['_onMoveCallback',['../classsfml__widgets_1_1_movable.html#a89658b327a79da9ec9996cbd1867db6f',1,'sfml_widgets::Movable']]],
   ['_5fonreleasecallback',['_onReleaseCallback',['../classsfml__widgets_1_1_movable.html#a64fee7a45781001ccac818a833031d50',1,'sfml_widgets::Movable']]],
+  ['_5fview',['_view',['../classsfml__widgets_1_1_widget.html#a3073107ec4de505c0aee66f5112119df',1,'sfml_widgets::Widget']]],
   ['_5fviews',['_views',['../classsfml__widgets_1_1_window.html#a19b42cc847f7110b4053c89b7505a9e9',1,'sfml_widgets::Window']]],
   ['_5fwidgets',['_widgets',['../classsfml__widgets_1_1_view.html#ab1e513825db8eeb4acd1679cb8d245f5',1,'sfml_widgets::View']]],
   ['_5fwindow',['_window',['../classsfml__widgets_1_1_view.html#ad78ac0dbf4afb6d985e67815c1487f1f',1,'sfml_widgets::View']]]
