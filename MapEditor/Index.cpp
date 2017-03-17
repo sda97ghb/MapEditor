@@ -43,3 +43,23 @@ void map_editor::Index::set(map_editor::Index::Type type,
     _type = type;
     _object = object;
 }
+
+//-------- Indexes --------//
+
+#include "MapEditor/PlatformModel.h"
+
+map_editor::Index map_editor::PlatformIndex(map_editor::PlatformModel* platform)
+{
+    return map_editor::Index(map_editor::Index::Type::platform, platform);
+}
+
+bool map_editor::isPlatformIndex(const map_editor::Index& index)
+{
+    return index.type() == map_editor::Index::Type::platform;
+}
+
+map_editor::PlatformModel* map_editor::indexToPlatformModel(
+        const map_editor::Index& index)
+{
+    return static_cast<map_editor::PlatformModel*>(index.object());
+}

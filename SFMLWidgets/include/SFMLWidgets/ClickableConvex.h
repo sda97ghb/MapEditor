@@ -27,7 +27,7 @@ private:
     bool testForClick(const sf::Vector2f& cursorPos);
 
     /// @brief Call window draw method to paint the button.
-    void paint(sfml_widgets::Window& window);
+    virtual void paint(sfml_widgets::Window& window);
 };
 
 #endif // CLICKABLECONVEX_H

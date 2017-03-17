@@ -21,6 +21,7 @@ void sfml_widgets::Window::run()
     {
         sf::Event event;
         while (pollEvent(event))
+        {
             switch (event.type)
             {
                 case sf::Event::MouseButtonPressed :
@@ -38,6 +39,9 @@ void sfml_widgets::Window::run()
                 default :
                     break;
             }
+        }
+
+        update();
 
         clear(_clearColor);
 
@@ -99,6 +103,11 @@ void sfml_widgets::Window::mouseMovedEvent(
 void sfml_widgets::Window::setClearColor(const sf::Color& color)
 {
     _clearColor = color;
+}
+
+void sfml_widgets::Window::update()
+{
+    ;
 }
 
 void sfml_widgets::Window::addView(sfml_widgets::View* view)

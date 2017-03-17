@@ -6,23 +6,24 @@
 #include "SFML/System/Vector2.hpp"
 
 #include "MapEditor/Index.h"
-#include "MapEditor/ModelSubscriber.h"
+#include "MapEditor/PlatformModel.h"
 
 namespace map_editor
 {
     class Model;
+    class ModelSubscriber;
 }
 
 class map_editor::Model
 {
 public:
-    class Platform;
-
     static Model& instance();
 
-    Platform& createPlatform();
-    void deletePlatform(map_editor::Model::Platform& platform);
-    std::list<map_editor::Model::Platform>& platforms();
+    void drop();
+
+    map_editor::PlatformModel& createPlatform();
+    void deletePlatform(map_editor::PlatformModel& platform);
+    std::list<map_editor::PlatformModel>& platforms();
     void notifyPlatformAdded(const map_editor::Index& platformIndex);
     void notifyPlatformDeleted(const map_editor::Index& platformIndex);
     void notifyPlatformUpdated(const map_editor::Index& platformIndex);
@@ -42,21 +43,9 @@ private:
 
     map_editor::Index _currentIndex;
 
-    std::list<map_editor::Model::Platform> _platforms;
+    std::list<map_editor::PlatformModel> _platforms;
 
     std::list<map_editor::ModelSubscriber*> _subscribers;
-};
-
-class map_editor::Model::Platform : public map_editor::Indexed
-{
-public:
-    Platform();
-    ~Platform();
-    void setVertexes(const std::list<sf::Vector2f>& vertexes);
-    const std::list<sf::Vector2f>& vertexes() const;
-
-private:
-    std::list<sf::Vector2f> _vertexes;
 };
 
 #endif // MAP_EDITOR_MODEL_H

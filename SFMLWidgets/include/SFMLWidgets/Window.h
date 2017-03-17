@@ -40,6 +40,8 @@ public:
     /// @brief Set background color for window.
     void setClearColor(const sf::Color& color);
 
+    virtual void update();
+
 protected:
     // Allow view regisrty itself.
     friend sfml_widgets::View::View(sfml_widgets::Window*);

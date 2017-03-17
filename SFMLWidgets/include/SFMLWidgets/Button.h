@@ -1,6 +1,7 @@
 #ifndef BUTTON_H
 #define BUTTON_H
 
+#include "SFML/Graphics/Text.hpp"
 #include "SFMLWidgets/ClickableRectangle.h"
 
 namespace sfml_widgets
@@ -36,6 +37,19 @@ public:
 
     /// @brief Set fill color for the button.
     void setFillColor(const sf::Color& color);
+
+    /// @brief Set button text.
+    void setText(const std::string& text);
+
+    /// @brief Return button text.
+    std::string text() const;
+
+private:
+    /// @brief Paint button.
+    void paint(sfml_widgets::Window &window);
+
+    sf::Text _text; ///< Button text.
+    sf::Font _font; ///< Button text font.
 };
 
 #endif // BUTTON_H

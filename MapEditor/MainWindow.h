@@ -10,8 +10,9 @@
 
 #include "MapEditor/Index.h"
 #include "MapEditor/ModelSubscriber.h"
-#include "MapEditor/Platform.h"
+#include "MapEditor/PlatformWidget.h"
 #include "MapEditor/PlatformDelegate.h"
+#include "MapEditor/PlatformPropertiesDelegate.h"
 #include "MapEditor/WorldViewConstructor.h"
 
 namespace map_editor
@@ -34,6 +35,12 @@ public:
 private:
     void constructToolbar();
 
+    map_editor::PlatformWidget* findPlatformWidgetForModel(
+            map_editor::PlatformModel* platformModel);
+    void deletePlatformWidget(map_editor::PlatformWidget* platformWidget);
+
+    void update();
+
     sfml_widgets::View* _panelView;
     sfml_widgets::View* _toolbarView;
     sfml_widgets::View* _worldView;
@@ -42,12 +49,18 @@ private:
     sfml_widgets::RectangleWidget* _toolbarSplitter;
 
     // Toolbar
+    sfml_widgets::Button* _loadMapButton;
+    sfml_widgets::Button* _saveMapButton;
     sfml_widgets::Button* _addPlatformButton;
     sfml_widgets::Button* _deleteSelectedButton;
 
     // World view
-    std::list<map_editor::Platform*> _platforms;
+    std::list<map_editor::PlatformWidget*> _platformWidgets;
     map_editor::PlatformDelegate* _platformDelegate;
+    sfml_widgets::RectangleWidget* _worldOriginWidget;
+
+    // Panel
+    map_editor::PlatformPropertiesDelegate* _platformPropertiesDelegate;
 };
 
 #endif // MAP_EDITOR_MAINWINDOW_H

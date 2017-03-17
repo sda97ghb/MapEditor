@@ -2,8 +2,7 @@
 #include <iostream>
 
 #include "MapEditor/Model.h"
-
-//-------- Model --------//
+#include "MapEditor/ModelSubscriber.h"
 
 map_editor::Model& map_editor::Model::instance()
 {
@@ -11,7 +10,14 @@ map_editor::Model& map_editor::Model::instance()
     return instance;
 }
 
-map_editor::Model::Platform& map_editor::Model::createPlatform()
+void map_editor::Model::drop()
+{
+    for (map_editor::PlatformModel& platform : _platforms)
+        notifyPlatformDeleted(map_editor::PlatformIndex(&platform));
+    _platforms.clear();
+}
+
+map_editor::PlatformModel& map_editor::Model::createPlatform()
 {
     _platforms.emplace_back();
     notifyPlatformAdded(map_editor::Index(map_editor::Index::Type::platform,
@@ -19,12 +25,12 @@ map_editor::Model::Platform& map_editor::Model::createPlatform()
     return _platforms.back();
 }
 
-void map_editor::Model::deletePlatform(map_editor::Model::Platform& platform)
+void map_editor::Model::deletePlatform(map_editor::PlatformModel& platform)
 {
-    map_editor::Model::Platform* platformPtr = &platform;
+    map_editor::PlatformModel* platformPtr = &platform;
 
     auto platformIter = std::find_if(_platforms.begin(), _platforms.end(),
-    [&] (const map_editor::Model::Platform& platformI) {
+    [&] (const map_editor::PlatformModel& platformI) {
         return &platformI == platformPtr;
     });
     if (platformIter == _platforms.end())
@@ -33,11 +39,10 @@ void map_editor::Model::deletePlatform(map_editor::Model::Platform& platform)
     std::advance(platformIterEnd, 1);
     _platforms.erase(platformIter, platformIterEnd);
 
-    notifyPlatformDeleted(map_editor::Index(map_editor::Index::Type::platform,
-                                            platformPtr));
+    notifyPlatformDeleted(map_editor::PlatformIndex(platformPtr));
 }
 
-std::list<map_editor::Model::Platform>& map_editor::Model::platforms()
+std::list<map_editor::PlatformModel>& map_editor::Model::platforms()
 {
     return _platforms;
 }
@@ -82,7 +87,7 @@ void map_editor::Model::deleteCurrentIndex()
         case map_editor::Index::Type::undefined :
             return;
         case map_editor::Index::Type::platform :
-            deletePlatform(*static_cast<map_editor::Model::Platform*>(_currentIndex.object()));
+            deletePlatform(*static_cast<map_editor::PlatformModel*>(_currentIndex.object()));
         break;
     }
     _currentIndex.set(map_editor::Index::Type::undefined, nullptr);
@@ -91,30 +96,4 @@ void map_editor::Model::deleteCurrentIndex()
 void map_editor::Model::addSubscriber(map_editor::ModelSubscriber* subscriber)
 {
     _subscribers.push_back(subscriber);
-}
-
-//-------- Model::Platform --------//
-
-map_editor::Model::Platform::Platform()
-{
-    std::cout << "Model platform constructor" << std::endl;
-}
-
-map_editor::Model::Platform::~Platform()
-{
-    std::cout << "Model platform destructor" << std::endl;
-}
-
-void map_editor::Model::Platform::setVertexes(
-        const std::list<sf::Vector2f>& vertexes)
-{
-    _vertexes = vertexes;
-    Model::instance().notifyPlatformUpdated(
-                map_editor::Index(map_editor::Index::Type::platform,
-                                  this));
-}
-
-const std::list<sf::Vector2f>& map_editor::Model::Platform::vertexes() const
-{
-    return _vertexes;
 }

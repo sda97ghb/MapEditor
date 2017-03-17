@@ -48,4 +48,14 @@ class map_editor::Indexed
 {
 };
 
+namespace map_editor
+{
+    class PlatformModel;
+
+    map_editor::Index PlatformIndex(map_editor::PlatformModel* platform);
+    bool isPlatformIndex(const map_editor::Index& index);
+    map_editor::PlatformModel* indexToPlatformModel(
+            const map_editor::Index& index);
+}
+
 #endif // MAP_EDITOR_INDEX_H

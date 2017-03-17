@@ -13,27 +13,36 @@ namespace sfml_widgets
 
 namespace map_editor
 {
-    class Platform;
     class PlatformDelegate;
+    class PlatformModel;
+    class PlatformWidget;
 }
 
 class map_editor::PlatformDelegate
 {
 public:
-    PlatformDelegate(map_editor::Platform* platform,
+    PlatformDelegate(map_editor::PlatformModel* platformModel,
+                     map_editor::PlatformWidget* platformWidget,
                      sfml_widgets::View* view);
     ~PlatformDelegate();
 
-    map_editor::Platform* platform() const;
+    map_editor::PlatformModel* platformModel() const;
 
 private:
-    void addVertexButton(const sf::Vector2f& position, int vertexNumber,
-                         sfml_widgets::View* view);
+    void addVertexButton(int vertexNumber);
+    void createMovePlatformButton();
+
+    map_editor::PlatformModel* _platformModel;
+    map_editor::PlatformWidget* _platformWidget;
+
+    sfml_widgets::View* _view;
 
     std::list<sfml_widgets::MovableRectangle*> _vertexButtons;
 
-    map_editor::Platform* _platform;
-    sfml_widgets::View* _view;
+    sfml_widgets::MovableRectangle* _movePlatformButton;
+
+    float _x0;
+    float _y0;
 };
 
 #endif // PLATFORMDELEGATE_H
