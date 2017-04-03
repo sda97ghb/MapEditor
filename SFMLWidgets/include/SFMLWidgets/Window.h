@@ -26,7 +26,7 @@ public:
     ~Window();
 
     /// @brief Run window. Stop flow until window is closed.
-    void run();
+    void run(float fps = 60.0f);
 
     /// @brief Call mouse press event processing for all event processors.
     void mouseButtonPressedEvent(const sf::Event::MouseButtonEvent& event);
@@ -40,9 +40,18 @@ public:
     /// @brief Set background color for window.
     void setClearColor(const sf::Color& color);
 
-    virtual void update();
+    /// @brief You can put anything in this method.
+    /// @note This method will be called before window clearing.
+    /// If you need to paint something manually you need to use paint() method.
+    virtual void onUpdate();
+
+    /// @brief You can put anything in this method.
+    /// @note This method will be called after window clearing and widget painting.
+    virtual void onPaint();
 
 protected:
+    void update();
+
     // Allow view regisrty itself.
     friend sfml_widgets::View::View(sfml_widgets::Window*);
 
@@ -52,6 +61,8 @@ protected:
     std::list<sfml_widgets::View*> _views; ///< List of all views.
 
     sf::Color _clearColor; ///< Background color.
+
+    sf::Clock _frameClock;
 };
 
 #endif // WINDOW_H

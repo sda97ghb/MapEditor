@@ -15,45 +15,16 @@ sfml_widgets::Window::~Window()
         delete view;
 }
 
-void sfml_widgets::Window::run()
+void sfml_widgets::Window::run(float fps)
 {
+    float frameDelay = 1000.0f / fps;
+    _frameClock.restart();
     while (isOpen())
-    {
-        sf::Event event;
-        while (pollEvent(event))
+        if (_frameClock.getElapsedTime().asMilliseconds() > frameDelay)
         {
-            switch (event.type)
-            {
-                case sf::Event::MouseButtonPressed :
-                    mouseButtonPressedEvent(event.mouseButton);
-                    break;
-                case sf::Event::MouseButtonReleased :
-                    mouseButtonReleasedEvent(event.mouseButton);
-                    break;
-                case sf::Event::MouseMoved :
-                    mouseMovedEvent(event.mouseMove);
-                    break;
-                case sf::Event::Closed :
-                    close();
-                    break;
-                default :
-                    break;
-            }
+            _frameClock.restart();
+            update();
         }
-
-        update();
-
-        clear(_clearColor);
-
-        for (sfml_widgets::View* view : _views)
-        {
-            setView(*view);
-            for (sfml_widgets::Widget* widget : view->widgets())
-                widget->paint(*this);
-        }
-
-        display();
-    }
 }
 
 void sfml_widgets::Window::mouseButtonPressedEvent(
@@ -105,9 +76,54 @@ void sfml_widgets::Window::setClearColor(const sf::Color& color)
     _clearColor = color;
 }
 
-void sfml_widgets::Window::update()
+void sfml_widgets::Window::onUpdate()
 {
     ;
+}
+
+void sfml_widgets::Window::onPaint()
+{
+    ;
+}
+
+void sfml_widgets::Window::update()
+{
+    sf::Event event;
+    while (pollEvent(event))
+    {
+        switch (event.type)
+        {
+            case sf::Event::MouseButtonPressed :
+                mouseButtonPressedEvent(event.mouseButton);
+                break;
+            case sf::Event::MouseButtonReleased :
+                mouseButtonReleasedEvent(event.mouseButton);
+                break;
+            case sf::Event::MouseMoved :
+                mouseMovedEvent(event.mouseMove);
+                break;
+            case sf::Event::Closed :
+                close();
+                break;
+            default :
+                break;
+        }
+    }
+
+    onUpdate();
+
+    clear(_clearColor);
+
+    for (sfml_widgets::View* view : _views)
+    {
+        setView(*view);
+        for (sfml_widgets::Widget* widget : view->widgets())
+            widget->paint(*this);
+    }
+
+    onPaint();
+
+    display();
 }
 
 void sfml_widgets::Window::addView(sfml_widgets::View* view)
