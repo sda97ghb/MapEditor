@@ -1,5 +1,5 @@
-#ifndef RECTANGLEWIDGET_H
-#define RECTANGLEWIDGET_H
+#ifndef TEXTWIDGET_H
+#define TEXTWIDGET_H
 
 #include "SFML/Graphics/Text.hpp"
 
@@ -28,4 +28,4 @@ private:
     sf::Font _font;
 };
 
-#endif // RECTANGLEWIDGET_H
+#endif // TEXTWIDGET_H
