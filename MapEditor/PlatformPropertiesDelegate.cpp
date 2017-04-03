@@ -11,6 +11,12 @@ map_editor::PlatformPropertiesDelegate::PlatformPropertiesDelegate(
     _view(view),
     _platformModel(platform)
 {
+    _titleTextWidget = new sfml_widgets::TextWidget(_view);
+    _titleTextWidget->setPosition(20.0f, 10.0f);
+    _titleTextWidget->setCharacterSize(16u);
+    _titleTextWidget->setFillColor(sf::Color::White);
+    _titleTextWidget->setString("Platform");
+
     _addVertexButton = new sfml_widgets::Button(_view);
     _deleteVertexButton = new sfml_widgets::Button(_view);
 

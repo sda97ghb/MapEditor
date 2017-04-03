@@ -3,6 +3,8 @@
 
 #include "SFML/Graphics/Font.hpp"
 
+#include "SFMLWidgets/TextWidget.h"
+
 namespace sfml_widgets
 {
     class Button;
@@ -26,6 +28,8 @@ public:
 
 private:
     sfml_widgets::View* _view;
+
+    sfml_widgets::TextWidget* _titleTextWidget;
 
     sfml_widgets::Button* _addVertexButton;
     sfml_widgets::Button* _deleteVertexButton;
