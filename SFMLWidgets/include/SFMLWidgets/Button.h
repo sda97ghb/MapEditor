@@ -41,6 +41,9 @@ public:
     /// @brief Set button text.
     void setText(const std::string& text);
 
+    /// @brief Set button text as wstring.
+    void setText(const std::wstring& text);
+
     /// @brief Return button text.
     std::string text() const;
 

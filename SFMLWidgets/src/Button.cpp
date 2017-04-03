@@ -30,6 +30,11 @@ void sfml_widgets::Button::setText(const std::string& text)
     _text.setString(text);
 }
 
+void sfml_widgets::Button::setText(const std::wstring& text)
+{
+    _text.setString(text);
+}
+
 std::string sfml_widgets::Button::text() const
 {
     return _text.getString();
