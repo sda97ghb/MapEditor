@@ -18,7 +18,7 @@ class sfml_widgets::RectangleWidget : public sfml_widgets::Widget,
 public:
     /// @brief Constructor.
     /// @details Place the widget on given view and registry it in view's window.
-    /// @param view View where button will be placed.
+    /// @param view View where widget will be placed.
     RectangleWidget(sfml_widgets::View* view);
 
 private:
